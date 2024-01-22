@@ -3,3 +3,5 @@
 /mock/*
 /node_modules/*
 /types/*
+/**/normalize.css
+/**/reset.css
