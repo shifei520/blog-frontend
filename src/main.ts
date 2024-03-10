@@ -24,8 +24,6 @@ import 'bytemd/dist/index.css';
 import dayjs from 'dayjs';
 import zhCn from 'dayjs/locale/zh-cn';
 dayjs.locale(zhCn);
-import { sm2Encrypt } from '@/utils/jsencrypt';
-console.log(sm2Encrypt('shifei5201314'));
 
 const app = createApp(App);
 

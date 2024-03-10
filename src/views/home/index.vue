@@ -1,12 +1,8 @@
 <template>
   <div class="home-page hidden-scrollbar">
     <section class="first-page">
-      <img
-        class="home-bg"
-        src="@/assets/images/home_bg.png"
-        alt=""
-        :style="{ transform: `translateY(-${bgTranslateY}px)` }"
-      />
+      <img class="home-bg" src="@/assets/images/home_bg.png" alt=""
+        :style="{ transform: `translateY(-${bgTranslateY}px)` }" />
       <div class="menu-info-container">
         <!-- 时间和天气信息 -->
         <div class="app-info">
@@ -16,12 +12,7 @@
         </div>
         <!-- 菜单列表 -->
         <div class="scrollable-component">
-          <MenuItem
-            v-for="item in menuList"
-            :key="item.code"
-            :title="item.title"
-            @click="skipMenu(item.path)"
-          />
+          <MenuItem v-for="item in menuList" :key="item.code" :title="item.title" @click="skipMenu(item.path)" />
         </div>
       </div>
       <svg-icon name="down-arrow" className="down-arrow" @click="scrollPage"></svg-icon>
@@ -212,14 +203,14 @@ const scrollPage = () => {
     left: 0;
     z-index: -1;
     width: 100%;
-    height: 1000px;
+    height: calc(100vh + 300px);
     will-change: transform;
   }
 
   .main-content {
     padding: 30px;
 
-    > section {
+    >section {
       margin-top: 50px;
     }
 

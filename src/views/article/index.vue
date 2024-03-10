@@ -5,20 +5,10 @@
     <div class="article-box">
       <!-- <div class="filter-btn">筛选</div> -->
       <div class="article-list hidden-scrollbar" ref="scrollTargetRef">
-        <q-infinite-scroll
-          @load="getArticleList"
-          :offset="250"
-          :scroll-target="scrollTargetRef"
-          :disable="loadAll"
-          ref="infiniteScrollRef"
-        >
+        <q-infinite-scroll @load="getArticleList" :offset="250" :scroll-target="scrollTargetRef" :disable="loadAll"
+          ref="infiniteScrollRef">
           <TransitionGroup enter-active-class="animated animate__fadeInLeft">
-            <ArticleItem
-              v-for="item in articleList"
-              :key="item.id"
-              :item="item"
-              @click="skipToDetail(item.id)"
-            />
+            <ArticleItem v-for="item in articleList" :key="item.id" :item="item" @click="skipToDetail(item.id)" />
           </TransitionGroup>
         </q-infinite-scroll>
       </div>
@@ -72,7 +62,7 @@ const categoryChange = (id: number) => {
   articleList.value = [];
   loadAll.value = false;
   infiniteScrollRef.value.reset();
-  getArticleList(1, () => {});
+  // getArticleList(1, () => {});
 };
 
 const router = useRouter();
