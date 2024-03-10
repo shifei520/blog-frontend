@@ -1,21 +1,52 @@
 import { fileURLToPath, URL } from 'node:url';
 import UnoCSS from 'unocss/vite';
-import { defineConfig } from 'vite';
+import path from 'node:path';
+import { defineConfig, loadEnv } from 'vite';
 import vue from '@vitejs/plugin-vue';
+import { createSvgIconsPlugin } from 'vite-plugin-svg-icons';
+import { quasar, transformAssetUrls } from '@quasar/vite-plugin';
 
+const localIconPath = path.join(process.cwd(), 'src/assets/svg-icons');
 // https://vitejs.dev/config/
-export default defineConfig({
-  plugins: [vue(), UnoCSS()],
-  resolve: {
-    alias: {
-      '@': fileURLToPath(new URL('./src', import.meta.url)),
-    },
-  },
-  css: {
-    preprocessorOptions: {
-      scss: {
-        additionalData: '@import "@/assets/css/global.scss";',
+export default defineConfig(({ mode }) => {
+  const env = loadEnv(mode, process.cwd(), '');
+
+  return {
+    plugins: [
+      vue({
+        template: { transformAssetUrls },
+      }),
+      quasar({
+        sassVariables: 'src/assets/css/quasar-variables.scss',
+      }),
+      UnoCSS(),
+      createSvgIconsPlugin({
+        iconDirs: [localIconPath],
+        symbolId: 'icon-[name]',
+        inject: 'body-last',
+        customDomId: '__SVG_ICON_LOCAL__',
+      }),
+    ],
+    server: {
+      proxy: {
+        [env.VITE_PREFIX_API]: {
+          target: 'http://localhost:3000',
+          changeOrigin: true,
+          rewrite: (path) => path.replace(/^\/api/, '\\api'),
+        },
       },
     },
-  },
+    resolve: {
+      alias: {
+        '@': fileURLToPath(new URL('./src', import.meta.url)),
+      },
+    },
+    css: {
+      preprocessorOptions: {
+        scss: {
+          additionalData: '@import "@/assets/css/global.scss";',
+        },
+      },
+    },
+  };
 });

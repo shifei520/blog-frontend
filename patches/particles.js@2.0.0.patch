@@ -1,0 +1,35 @@
+diff --git a/particles.js b/particles.js
+index 325d8349960022a3a6aaef3d1ca94938be622a68..ed36548512d7be593db4ccbd7feb305287a25dde 100644
+--- a/particles.js
++++ b/particles.js
+@@ -1412,17 +1412,21 @@ var pJS = function(tag_id, params){
+ };
+ 
+ /* ---------- global functions - vendors ------------ */
+-
+ Object.deepExtend = function(destination, source) {
+-  for (var property in source) {
+-    if (source[property] && source[property].constructor &&
+-     source[property].constructor === Object) {
+-      destination[property] = destination[property] || {};
+-      arguments.callee(destination[property], source[property]);
+-    } else {
+-      destination[property] = source[property];
+-    }
++  function extendRecursive(dest, src) {
++      for (var property in src) {
++          if (src.hasOwnProperty(property)) {
++              if (src[property] && src[property].constructor && src[property].constructor === Object) {
++                  dest[property] = dest[property] || {};
++                  extendRecursive(dest[property], src[property]);
++              } else {
++                  dest[property] = src[property];
++              }
++          }
++      }
+   }
++
++  extendRecursive(destination, source);
+   return destination;
+ };
+ 

@@ -1,0 +1,29 @@
+$primaryColor: #1d1c1c;
+$primaryColor_2: #313d44;
+$infoColor: #cccbc8;
+$infoColor-2: #8a919f;
+$primaryBgTransparent: rgb(255 254 251 / 58%);
+$primaryBg: #fffefb;
+$BgGrey: #f5f4f1;
+$primaryBlue: #00bfff;
+$weakBlue: #d4eaf7;
+$middleBule: #71c4ef;
+$deepBlue: #00668c;
+
+@mixin shi-box-shadow {
+  box-shadow:
+    0 1.3px 0.9px rgb(0 0 0 / 1.1%),
+    0 2.9px 2.3px rgb(0 0 0 / 2.5%),
+    0 4.6px 4.8px rgb(0 0 0 / 4%),
+    0 6px 9.9px rgb(0 0 0 / 5.6%),
+    0 7px 27px rgb(0 0 0 / 7%);
+}
+
+// 文本最多(n)行，超出部分用...表示
+@mixin ellipse-lines($num: 1) {
+  display: -webkit-box;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -webkit-line-clamp: $num;
+  -webkit-box-orient: vertical;
+}
