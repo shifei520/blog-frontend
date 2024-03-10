@@ -5,10 +5,20 @@
     <div class="article-box">
       <!-- <div class="filter-btn">筛选</div> -->
       <div class="article-list hidden-scrollbar" ref="scrollTargetRef">
-        <q-infinite-scroll @load="getArticleList" :offset="250" :scroll-target="scrollTargetRef" :disable="loadAll"
-          ref="infiniteScrollRef">
+        <q-infinite-scroll
+          @load="getArticleList"
+          :offset="250"
+          :scroll-target="scrollTargetRef"
+          :disable="loadAll"
+          ref="infiniteScrollRef"
+        >
           <TransitionGroup enter-active-class="animated animate__fadeInLeft">
-            <ArticleItem v-for="item in articleList" :key="item.id" :item="item" @click="skipToDetail(item.id)" />
+            <ArticleItem
+              v-for="item in articleList"
+              :key="item.id"
+              :item="item"
+              @click="skipToDetail(item.id)"
+            />
           </TransitionGroup>
         </q-infinite-scroll>
       </div>
@@ -41,14 +51,16 @@ const loadAll = ref(false);
 const scrollTargetRef = ref();
 const infiniteScrollRef = ref();
 
+let curPageNo = 1;
 /** 获取文章列表 */
 const getArticleList = async (index: number, done: any) => {
-  queryForm.value.pageNo = index;
+  queryForm.value.pageNo = curPageNo;
 
   const data = await articleListGet(queryForm.value);
   if (data.code !== 200) return;
 
   if (queryForm.value.pageNo * queryForm.value.pageSize < data.data.totalCount) {
+    curPageNo += 1;
     done && done();
   } else {
     loadAll.value = true;
@@ -61,8 +73,7 @@ const categoryChange = (id: number) => {
   queryForm.value.categoryId = id;
   articleList.value = [];
   loadAll.value = false;
-  infiniteScrollRef.value.reset();
-  // getArticleList(1, () => {});
+  curPageNo = 1;
 };
 
 const router = useRouter();
