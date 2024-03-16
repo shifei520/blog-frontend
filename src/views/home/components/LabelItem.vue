@@ -1,9 +1,9 @@
 <template>
   <p
-    class="px-[12px] py-[4px] text-[12px] max-w-max rounded-[4px] font-semibold"
+    class="flex items-center px-[12px] py-[4px] text-[12px] max-w-max rounded-[4px] font-semibold"
     :style="{ backgroundColor: bgColor || '#d9dfe3', color: color || '#7281a3' }"
   >
-    {{ name }}
+    <span>{{ name }}</span>
   </p>
 </template>
 <script setup lang="ts" name="LabelItem">

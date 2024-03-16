@@ -22,7 +22,7 @@
 <script setup lang="ts" name="Dialog">
 import { computed } from 'vue';
 
-const emit = defineEmits(['update:visible']);
+const emit = defineEmits(['update:visible', 'on-close']);
 const props = defineProps<{
   title: string;
   visible: boolean;
@@ -33,6 +33,9 @@ const innerVisible = computed({
     return props.visible;
   },
   set(val: boolean) {
+    if (!val) {
+      emit('on-close');
+    }
     emit('update:visible', val);
   },
 });

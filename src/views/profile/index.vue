@@ -36,18 +36,24 @@ import { defineAsyncComponent, ref } from 'vue';
 import { userStore } from '@/store/user';
 import { storeToRefs } from 'pinia';
 const PersonalInfo = defineAsyncComponent(() => import('./component/PersonalInfo.vue'));
+const TagManager = defineAsyncComponent(() => import('./component/TagManager.vue'));
 
 const { userInfo } = storeToRefs(userStore());
 const router = useRouter();
 
 const asideMenus: Record<string, any> = {
   PersonalInfo: PersonalInfo,
+  TagManager: TagManager,
 };
 
 const asideMenuList = ref([
   {
     name: '个人资料',
     comp: 'PersonalInfo',
+  },
+  {
+    name: '标签管理',
+    comp: 'TagManager',
   },
 ]);
 
