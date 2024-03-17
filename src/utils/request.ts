@@ -35,6 +35,16 @@ instance.interceptors.response.use(
     }
   },
   (error: AxiosError<{ code: number; message: string }>) => {
+    const code = error.response?.status;
+
+    switch (code) {
+      case 401: {
+        const store = userStore();
+        store.clearInfo();
+        break;
+      }
+    }
+
     toast.error(error?.response?.data?.message || error.message || '请求失败');
     return Promise.reject(error);
   },
