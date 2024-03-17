@@ -4,7 +4,10 @@
     :class="{ visible: navBarVisible }"
     :style="{ backgroundColor: lastScrollTop === 0 ? 'transparent' : 'rgba(255, 255, 255, 0.8)' }"
   >
-    <h2>时不待我</h2>
+    <div class="left-logo">
+      <img class="logo" src="@/assets/images/logo.png" alt="" />
+      <h2>时不待我</h2>
+    </div>
     <ul class="right-menu">
       <li class="menu-item" v-for="item in menuList" :key="item.code" @click="skipMenu(item.path)">
         <svg-icon :name="item.icon"></svg-icon>
@@ -120,8 +123,22 @@ onBeforeMount(() => {
   justify-content: space-between;
   height: 58px;
   padding: 0 20px;
+  font-size: 18px;
   color: #fff;
   transition: all 0.6s;
+
+  .left-logo {
+    display: flex;
+    align-items: center;
+    font-size: 18px;
+    font-weight: 600;
+
+    .logo {
+      width: 28px;
+      height: 28px;
+      margin-right: 6px;
+    }
+  }
 
   .right-menu {
     display: flex;
