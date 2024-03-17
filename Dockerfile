@@ -23,7 +23,7 @@ RUN pnpm run build-only
 
 # 第二阶段
 # 拉取nginx镜像文件
-FROM nginx:1.24.0-alpine3.17-perl
+FROM nginx
 
 # 这里的dist文件就是打包好的文件，project是我们上面设置的工作目录
 COPY --from=0 /project/dist /usr/share/nginx/html
