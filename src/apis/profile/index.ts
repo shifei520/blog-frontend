@@ -8,6 +8,9 @@ export const addTag = (data: Addtag): Promise<NormalResponse> => {
     url: '/v1/tag',
     method: 'POST',
     data,
+    headers: {
+      requireToken: true,
+    },
   });
 };
 
@@ -17,5 +20,8 @@ export const editTag = (data: EditTag): Promise<NormalResponse> => {
     url: '/v1/tag',
     method: 'PUT',
     data,
+    headers: {
+      requireToken: true,
+    },
   });
 };

@@ -1,7 +1,7 @@
 <template>
   <div class="article-item">
     <div class="blog-header" v-if="item.coverImage">
-      <img class="cover-img" :src="imgDomain + item.coverImage" alt="" />
+      <img class="cover-img" v-lazy="imgDomain + item.coverImage" :alt="item.title" />
     </div>
     <div class="article-content">
       <h1 class="article-title">{{ item.title }}</h1>
@@ -25,6 +25,7 @@
   </div>
 </template>
 <script setup lang="ts" name="ArticleItem">
+import loading from '@/assets/images/loading.gif';
 defineProps<{
   item: {
     id: number;
@@ -55,6 +56,10 @@ const imgDomain = import.meta.env.VITE_IMG_DOMAIN;
       width: 100%;
       height: 100%;
       object-fit: cover;
+    }
+
+    .cover-img[lazy='error'] {
+      object-fit: contain;
     }
   }
 

@@ -16,6 +16,9 @@ import './assets/css/common.scss';
 import 'animate.css';
 import globalComponents from './components/index';
 import globalDirectives from './directives/index';
+import VueLazyload from 'vue-lazyload';
+import loading from '@/assets/images/loading.gif';
+import loadFail from '@/assets/images/load-fail.png';
 // 提示信息组件
 import Toast from 'vue-toastification';
 import 'vue-toastification/dist/index.css';
@@ -37,6 +40,10 @@ app.use(Toast, {
   newestOnTop: true,
   hideProgressBar: true,
   timeout: 3000,
+});
+app.use(VueLazyload, {
+  loading: loading,
+  error: loadFail,
 });
 const pinia = createPinia();
 pinia.use(piniaPluginPersistedstate);

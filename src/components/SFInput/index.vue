@@ -104,7 +104,6 @@ const inputHandle = (e: Event) => {
     }
 
     &::placeholder {
-      font-family: 'PingFang SC';
       color: $infoColor-2;
     }
   }

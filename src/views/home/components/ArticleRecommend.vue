@@ -10,7 +10,7 @@
       :data-id="item.id"
     >
       <div class="item-card">
-        <div class="bg-image" :style="{ 'background-image': `url(${item.coverImage})` }"></div>
+        <div class="bg-image" v-lazy:background-image="item.coverImage"></div>
         <div class="article-item">
           <div class="article-info">
             <h5 class="title">{{ item.title }}</h5>
@@ -87,6 +87,10 @@ const skipToDetail = (id: number) => {
     transition:
       transform 0.25s,
       filter 0.2s;
+  }
+
+  .bg-image[lazy='error'] {
+    background-size: contain !important;
   }
 
   .item-card {

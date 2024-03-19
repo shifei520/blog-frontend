@@ -4,7 +4,7 @@
       <div class="form-item">
         <span class="form-item-title leading-[32px] required">文章标题:</span>
         <div class="form-item-content">
-          <SFInput width="100%" v-model="formData.title" />
+          <SFInput width="100%" v-model="formData.title" placeholder="请输入文章标题" />
         </div>
       </div>
       <div class="form-item !mb-0">
@@ -32,11 +32,12 @@
             v-model="formData.tagIds"
             @fetch-data="fetchData"
             customTriggerClass="sf-multiple-select"
+            placeholder="至少选择一个标签"
           />
         </div>
       </div>
       <div class="form-item">
-        <span class="form-item-title leading-[32px] required">编辑摘要:</span>
+        <span class="form-item-title leading-[32px] required">文章摘要:</span>
         <div class="form-item-content">
           <SFInput
             type="textarea"
@@ -44,6 +45,7 @@
             show-word-limit
             maxlength="100"
             v-model="formData.abstract"
+            placeholder="请输入文章摘要"
           />
         </div>
       </div>
