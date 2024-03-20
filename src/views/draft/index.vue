@@ -3,7 +3,14 @@
     <div class="draft-header">
       <button class="btn" @click="publishHandle">发布</button>
     </div>
-    <MarkDownEditor class="custom-editor" v-model="content" />
+    <Suspense>
+      <MarkDownEditor class="custom-editor" v-model="content" />
+      <template #fallback>
+        <div class="loading-container">
+          <SFLoading />
+        </div>
+      </template>
+    </Suspense>
     <PublishDialog ref="publishDialogRef" :content="content" />
   </div>
 </template>
@@ -73,6 +80,14 @@ const content = ref('');
     .bytemd {
       height: calc(100vh - 80px);
     }
+  }
+
+  .loading-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100vw;
+    height: calc(100vh - 80px);
   }
 }
 </style>

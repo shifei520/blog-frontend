@@ -10,12 +10,16 @@
           <span class="mr-[20px]">{{ articleDetailInfo?.createTime }}</span>
           <svg-icon name="view"></svg-icon>
           <span class="ml-[4px] mr-[15px]">{{ articleDetailInfo?.views }}</span>
-          <MarkDownEditor
-            v-if="articleDetailInfo?.content"
-            :isView="true"
-            v-model="articleDetailInfo.content"
-            @menu-list="getMenuList"
-          />
+          <Suspense>
+            <MarkDownEditor
+              :isView="true"
+              v-model="articleDetailInfo.content"
+              @menu-list="getMenuList"
+            />
+            <template #fallback>
+              <SFLoading />
+            </template>
+          </Suspense>
           <div class="labels">
             <span class="label-title">标签：</span>
             <LabelItem :name="articleDetailInfo?.category?.name" />
@@ -93,7 +97,22 @@ const MarkDownEditor = defineAsyncComponent(() => import('@/components/MarkDownE
 
 const route = useRoute();
 const articleId = ref(Number(route.params?.id));
-const articleDetailInfo = ref<ArticleItemType>();
+const articleDetailInfo = ref<ArticleItemType>({
+  id: 0,
+  title: '',
+  abstract: '',
+  content: '',
+  likesCount: 0,
+  views: 0,
+  coverImage: '',
+  createTime: '',
+  updateTime: '',
+  tags: [],
+  category: {
+    id: 0,
+    name: '',
+  },
+});
 /** 页面初始化时浏览量+1 */
 const addPageView = async () => {
   await addView(articleId.value);

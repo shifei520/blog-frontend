@@ -51,16 +51,14 @@ const loadAll = ref(false);
 const scrollTargetRef = ref();
 const infiniteScrollRef = ref();
 
-let curPageNo = 1;
 /** 获取文章列表 */
 const getArticleList = async (index: number, done: any) => {
-  queryForm.value.pageNo = curPageNo;
+  queryForm.value.pageNo = index;
 
   const data = await articleListGet(queryForm.value);
   if (data.code !== 200) return;
 
   if (queryForm.value.pageNo * queryForm.value.pageSize < data.data.totalCount) {
-    curPageNo += 1;
     done && done();
   } else {
     loadAll.value = true;
@@ -73,7 +71,8 @@ const categoryChange = (id: number) => {
   queryForm.value.categoryId = id;
   articleList.value = [];
   loadAll.value = false;
-  curPageNo = 1;
+  infiniteScrollRef.value.setIndex(0);
+  infiniteScrollRef.value.poll();
 };
 
 const router = useRouter();
