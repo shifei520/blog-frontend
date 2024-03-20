@@ -13,6 +13,7 @@ RUN npm config set registry https://registry.npmmirror.com/
 RUN npm install pnpm -g
 
 # 安装node_modules
+RUN pnpm -v
 RUN pnpm install
 
 # 将所有文件copy到工作目录
