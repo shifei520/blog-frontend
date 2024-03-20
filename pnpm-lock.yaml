@@ -156,9 +156,21 @@ devDependencies:
   prettier:
     specifier: ^3.0.3
     version: 3.2.4
+  resolve-url:
+    specifier: 0.2.1
+    version: 0.2.1
   sass:
     specifier: ^1.70.0
     version: 1.70.0
+  source-map-resolve:
+    specifier: 0.5.3
+    version: 0.5.3
+  source-map-url:
+    specifier: 0.4.1
+    version: 0.4.1
+  stable:
+    specifier: 0.1.8
+    version: 0.1.8
   stylelint:
     specifier: ^15.11.0
     version: 15.11.0(typescript@5.3.3)
@@ -177,6 +189,12 @@ devDependencies:
   unocss:
     specifier: ^0.58.3
     version: 0.58.3(postcss@8.4.33)(vite@5.0.12)
+  urix:
+    specifier: 0.1.0
+    version: 0.1.0
+  uuid:
+    specifier: 3.4.0
+    version: 3.4.0
   vite:
     specifier: ^5.0.10
     version: 5.0.12(@types/node@18.19.8)(sass@1.70.0)
