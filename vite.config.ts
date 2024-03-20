@@ -7,8 +7,7 @@ import { createSvgIconsPlugin } from 'vite-plugin-svg-icons';
 import { quasar, transformAssetUrls } from '@quasar/vite-plugin';
 // 开启gzip压缩
 import { compression } from 'vite-plugin-compression2';
-// 图片压缩
-import viteImagemin from 'vite-plugin-imagemin';
+import { ViteImageOptimizer } from 'vite-plugin-image-optimizer';
 
 const localIconPath = path.join(process.cwd(), 'src/assets/svg-icons');
 // https://vitejs.dev/config/
@@ -31,31 +30,15 @@ export default defineConfig(({ mode }) => {
         customDomId: '__SVG_ICON_LOCAL__',
       }),
       compression(),
-      viteImagemin({
-        gifsicle: {
-          optimizationLevel: 7,
-          interlaced: false,
+      ViteImageOptimizer({
+        png: {
+          quality: 70,
         },
-        optipng: {
-          optimizationLevel: 7,
+        jpeg: {
+          quality: 70,
         },
-        mozjpeg: {
-          quality: 20,
-        },
-        pngquant: {
-          quality: [0.8, 0.9],
-          speed: 4,
-        },
-        svgo: {
-          plugins: [
-            {
-              name: 'removeViewBox',
-            },
-            {
-              name: 'removeEmptyAttrs',
-              active: false,
-            },
-          ],
+        jpg: {
+          quality: 70,
         },
       }),
     ],
