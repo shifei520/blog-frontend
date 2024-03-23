@@ -67,6 +67,8 @@
         </li>
       </ul>
     </aside>
+    <!-- 返回顶部的按钮 -->
+    <BackTop />
     <SuspendedPanel
       :liked="liked"
       :likesCount="articleDetailInfo?.likesCount"
@@ -89,6 +91,7 @@ import { throttle } from '@/utils/utils';
 import PublishComment from './components/PublishComment.vue';
 import CommentItem from './components/CommentItem.vue';
 import SuspendedPanel from './components/SuspendedPanel.vue';
+import BackTop from './components/BackTop.vue';
 import { userStore } from '@/store/user';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';

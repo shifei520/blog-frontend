@@ -55,6 +55,7 @@
           <SFUpload
             tip="建议尺寸：192*128px (封面仅展示在首页信息流中)"
             :http-handle="httpHandle"
+            :progress="progress"
           />
         </div>
       </div>
@@ -76,6 +77,7 @@ import SFUpload from '@/components/SFUpload/index.vue';
 import { useToast } from 'vue-toastification';
 import { validateForm } from '@/utils/utils';
 import { useRouter } from 'vue-router';
+import type { AxiosProgressEvent } from 'axios';
 
 const toast = useToast();
 const props = defineProps<{
@@ -108,15 +110,24 @@ const fetchData = async (data: PageParameters, callback: FetchDataCallback) => {
   callback(tagList.value, tagList.value.length);
 };
 
+const progress = ref(0);
 /** 上传图片请求 */
 const httpHandle = async (file: File) => {
+  progress.value = 0;
+
   const fd = new FormData();
   fd.append('file', file);
-  const data = await uploadCoverImg(fd);
+  const data = await uploadCoverImg(fd, onUploadProgress);
   if (data.code !== 200) return;
-
   formData.value.coverImage = data.data;
   toast.success('上传成功');
+};
+
+/** 上传进度 */
+const onUploadProgress = (progressEvent: AxiosProgressEvent) => {
+  if (!progressEvent.progress) return;
+
+  progress.value = +(progressEvent.progress * 100).toFixed(2);
 };
 
 const formData = ref<ArticleAddParams>({

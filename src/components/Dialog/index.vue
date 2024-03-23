@@ -20,7 +20,7 @@
   </Teleport>
 </template>
 <script setup lang="ts" name="Dialog">
-import { computed } from 'vue';
+import { computed, watchEffect } from 'vue';
 
 const emit = defineEmits(['update:visible', 'on-close']);
 const props = defineProps<{
@@ -33,11 +33,14 @@ const innerVisible = computed({
     return props.visible;
   },
   set(val: boolean) {
-    if (!val) {
-      emit('on-close');
-    }
     emit('update:visible', val);
   },
+});
+
+watchEffect(() => {
+  if (!props.visible) {
+    emit('on-close');
+  }
 });
 </script>
 <style lang="scss" scoped>

@@ -1,4 +1,5 @@
 import request from '@/utils/request';
+import type { AxiosProgressEvent } from 'axios';
 import type { NormalResponse, PageResponse } from '../types/common';
 import type {
   ArticleListGetParams,
@@ -48,7 +49,10 @@ export const tagListGet = (): Promise<NormalResponse<TagItem[]>> => {
 };
 
 /** 上传封面 */
-export const uploadCoverImg = (data: FormData): Promise<NormalResponse<string>> => {
+export const uploadCoverImg = (
+  data: FormData,
+  onUploadProgress?: (progressEvent: AxiosProgressEvent) => void,
+): Promise<NormalResponse<string>> => {
   return request({
     url: '/v1/upload/img',
     method: 'POST',
@@ -57,6 +61,7 @@ export const uploadCoverImg = (data: FormData): Promise<NormalResponse<string>> 
       'Content-Type': 'multipart/form-data',
       requireToken: true,
     },
+    onUploadProgress,
   });
 };
 
