@@ -54,3 +54,18 @@ export interface ArticleStatisticsItem {
   yearMonth: string;
   articleCount: number;
 }
+
+/** 获取文章搜索列表的参数类型 */
+export interface ArticleListSearchParams {
+  pageNo: number;
+  pageSize: number;
+  keyword: string;
+}
+
+/** 搜索的单条文章返回值类型 */
+export interface ArticleSearchItem {
+  id: number;
+  title: string;
+  abstract: string;
+  createTime: string;
+}

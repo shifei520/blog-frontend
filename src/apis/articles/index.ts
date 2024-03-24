@@ -8,6 +8,8 @@ import type {
   TagItem,
   ArticleAddParams,
   ArticleStatisticsItem,
+  ArticleListSearchParams,
+  ArticleSearchItem,
 } from '../types/articles-index.d';
 
 /** 获取文章列表 */
@@ -123,5 +125,16 @@ export const statisticsArticleList = (): Promise<NormalResponse<ArticleStatistic
   return request({
     url: '/v1/article/statistics',
     method: 'GET',
+  });
+};
+
+/** 获取文章搜索列表 */
+export const articleListSearch = (
+  params: ArticleListSearchParams,
+): Promise<PageResponse<ArticleSearchItem>> => {
+  return request({
+    url: '/v1/article/esList',
+    method: 'GET',
+    params,
   });
 };

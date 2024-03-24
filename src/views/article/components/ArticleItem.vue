@@ -25,7 +25,6 @@
   </div>
 </template>
 <script setup lang="ts" name="ArticleItem">
-import loading from '@/assets/images/loading.gif';
 defineProps<{
   item: {
     id: number;
@@ -79,6 +78,7 @@ const imgDomain = import.meta.env.VITE_IMG_DOMAIN;
       > ul {
         display: flex;
         flex-wrap: wrap;
+        gap: 12px;
 
         > li {
           height: 24px;

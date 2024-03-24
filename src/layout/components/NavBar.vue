@@ -9,6 +9,9 @@
       <h2>时不待我</h2>
     </div>
     <ul class="right-menu">
+      <li class="search-item">
+        <SearchInput v-model="keyword" @search="searchArticle" />
+      </li>
       <li class="menu-item" v-for="item in menuList" :key="item.code" @click="skipMenu(item.path)">
         <svg-icon :name="item.icon"></svg-icon>
         <span class="ml-[3px]">{{ item.title }}</span>
@@ -37,8 +40,9 @@
 import { computed, onBeforeMount, onMounted, ref } from 'vue';
 import { useToast } from 'vue-toastification';
 import { Dropdown } from 'v-dropdown';
-import { useRouter } from 'vue-router';
+import { useRouter, useRoute } from 'vue-router';
 import { userStore } from '@/store/user';
+import SearchInput from './SearchInput.vue';
 
 const toast = useToast();
 const router = useRouter();
@@ -110,6 +114,21 @@ onMounted(() => {
 onBeforeMount(() => {
   window.removeEventListener('scroll', scrollHandle);
 });
+
+const route = useRoute();
+const keyword = ref('');
+/** 搜索文章 */
+const searchArticle = () => {
+  if (!keyword.value) return;
+
+  router.push('/article/search?keyword=' + keyword.value);
+};
+
+onMounted(() => {
+  if (route.query.keyword) {
+    keyword.value = route.query.keyword as string;
+  }
+});
 </script>
 <style lang="scss" scoped>
 .nav-bar {
@@ -171,6 +190,11 @@ onBeforeMount(() => {
           opacity: 1;
         }
       }
+    }
+
+    .search-item {
+      display: flex;
+      align-items: center;
     }
   }
 
