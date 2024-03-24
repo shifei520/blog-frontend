@@ -1,7 +1,11 @@
 <template>
   <div class="publish-comment">
     <h1 class="comment-title">发表评论</h1>
-    <textarea placeholder="请输入内容" class="textarea" v-model="content"></textarea>
+    <textarea
+      placeholder="请输入内容（自动过滤敏感词，请文明评论）"
+      class="textarea"
+      v-model="content"
+    ></textarea>
     <button class="emote">
       <svg-icon name="emote"></svg-icon>
     </button>

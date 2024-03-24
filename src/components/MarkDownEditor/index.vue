@@ -29,6 +29,7 @@ import 'katex/dist/katex.css';
 import zhHans from 'bytemd/locales/zh_Hans.json';
 import byteCode from './byteCode';
 import type { BytemdEditorContext } from 'bytemd';
+import { uploadCoverImg } from '@/apis/articles/index';
 
 const props = withDefaults(
   defineProps<{
@@ -263,15 +264,22 @@ const handleChange = (val: string) => {
   emit('update:modelValue', val);
 };
 
-const uploadImage = (files: File[]) => {
-  console.log(files);
+/** 上传图片请求 */
+const httpHandle = async (file: File) => {
+  const fd = new FormData();
+  fd.append('file', file);
+  const data = await uploadCoverImg(fd);
 
-  return [
-    {
-      title: files.map((i) => i.name),
-      url: 'http',
-    },
-  ];
+  return {
+    title: file.name,
+    url: import.meta.env.VITE_PUBLIC_PATH + data.data,
+  };
+};
+
+const uploadImage = async (files: File[]) => {
+  const result = await Promise.all(files.map((file) => httpHandle(file)));
+
+  return result;
 };
 </script>
 <style lang="scss">
