@@ -4,14 +4,15 @@
     :class="{ visible: navBarVisible }"
     :style="{ backgroundColor: lastScrollTop === 0 ? 'transparent' : 'rgba(255, 255, 255, 0.8)' }"
   >
-    <div class="left-logo">
+    <div class="left-logo" @click="skipMenu('/home')">
       <img class="logo" src="@/assets/images/logo.png" alt="" />
       <h2>时不待我</h2>
     </div>
+
+    <SearchInput v-model="keyword" @search="searchArticle" />
+    <svg-icon name="menu" class="menu-icon" @click="openDrawerMenu"></svg-icon>
     <ul class="right-menu">
-      <li class="search-item">
-        <SearchInput v-model="keyword" @search="searchArticle" />
-      </li>
+      <li class="search-item"></li>
       <li class="menu-item" v-for="item in menuList" :key="item.code" @click="skipMenu(item.path)">
         <svg-icon :name="item.icon"></svg-icon>
         <span class="ml-[3px]">{{ item.title }}</span>
@@ -34,15 +35,54 @@
         </Dropdown>
       </li>
     </ul>
+
+    <!-- 移动端的菜单抽屉组件 -->
+    <MenuDrawer v-model="drawerVisible">
+      <div class="user-header">
+        <span>{{ userName ? '您好，' + userName : '未登陆' }}</span>
+      </div>
+      <ul class="mobile-menu">
+        <li
+          class="mobile-menu-item"
+          v-for="item in menuList"
+          :key="item.code"
+          @click="skipMenu(item.path)"
+        >
+          <svg-icon :name="item.icon"></svg-icon>
+          <span class="ml-[3px]">{{ item.title }}</span>
+        </li>
+        <li class="mobile-menu-item" v-if="userName" @click="skipMenu('/profile')">
+          <svg-icon name="user"></svg-icon>
+          <span>个人中心</span>
+        </li>
+        <li class="mobile-menu-item" v-if="userName" @click="logout">
+          <svg-icon name="logout"></svg-icon>
+          <span>退出登陆</span>
+        </li>
+        <li class="mobile-menu-item" v-else @click="login">
+          <svg-icon name="logout"></svg-icon>
+          <span>登录</span>
+        </li>
+      </ul>
+    </MenuDrawer>
   </div>
 </template>
 <script setup lang="ts" name="NavBar">
-import { computed, onBeforeMount, onMounted, ref } from 'vue';
+import {
+  computed,
+  defineAsyncComponent,
+  onBeforeMount,
+  onBeforeUnmount,
+  onMounted,
+  ref,
+} from 'vue';
 import { useToast } from 'vue-toastification';
 import { Dropdown } from 'v-dropdown';
 import { useRouter, useRoute } from 'vue-router';
 import { userStore } from '@/store/user';
 import SearchInput from './SearchInput.vue';
+
+const MenuDrawer = defineAsyncComponent(() => import('./MenuDrawer.vue'));
 
 const toast = useToast();
 const router = useRouter();
@@ -80,6 +120,7 @@ const menuList = ref([
 
 /** 跳转路由 */
 const skipMenu = (path: string) => {
+  drawerVisible.value = false;
   router.push(path);
 };
 
@@ -129,6 +170,11 @@ onMounted(() => {
     keyword.value = route.query.keyword as string;
   }
 });
+
+const drawerVisible = ref(false);
+const openDrawerMenu = () => {
+  drawerVisible.value = true;
+};
 </script>
 <style lang="scss" scoped>
 .nav-bar {
@@ -149,13 +195,50 @@ onMounted(() => {
   .left-logo {
     display: flex;
     align-items: center;
+    margin-right: auto;
     font-size: 18px;
     font-weight: 600;
+    white-space: nowrap;
+    cursor: pointer;
+    user-select: none;
 
     .logo {
       width: 28px;
       height: 28px;
       margin-right: 6px;
+    }
+  }
+
+  .menu-icon {
+    display: none;
+    margin-left: 10px;
+    cursor: pointer;
+  }
+
+  .user-header {
+    min-height: 30px;
+    padding: 4px 10px;
+    color: $primaryColor;
+    text-align: center;
+  }
+
+  .mobile-menu {
+    padding: 15px;
+    color: $primaryColor;
+
+    .mobile-menu-item {
+      height: 30px;
+      line-height: 30px;
+      text-align: left;
+      cursor: pointer;
+
+      .svg-icon {
+        margin-right: 10px;
+      }
+
+      &:hover {
+        color: $primaryBlue;
+      }
     }
   }
 

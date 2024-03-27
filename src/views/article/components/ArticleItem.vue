@@ -43,6 +43,7 @@ const imgDomain = import.meta.env.VITE_IMG_DOMAIN;
 .article-item {
   padding: 0 30px;
   overflow: hidden;
+  cursor: pointer;
   background: #fff;
   border-radius: 5px;
   box-shadow: rgb(0 0 0 / 20%) 0 4px 2px -2px;

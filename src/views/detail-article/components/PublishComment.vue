@@ -92,6 +92,7 @@ const publish = async () => {
     justify-content: center;
     padding: 8px;
     color: rgb(71 85 105);
+    cursor: pointer;
     background-color: rgb(241 245 249);
     border: none;
     border-radius: 8px;

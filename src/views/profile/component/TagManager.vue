@@ -122,15 +122,18 @@ const onReset = () => {
 };
 </script>
 <style lang="scss" scoped>
-.tag-list {
-  display: flex;
-  gap: 10px;
-  margin-top: 20px;
+.tag-manager {
+  .tag-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 20px;
 
-  .profile-tag-item {
-    padding: 6px 14px;
-    font-size: 16px;
-    cursor: pointer;
+    .profile-tag-item {
+      padding: 6px 14px;
+      font-size: 16px;
+      cursor: pointer;
+    }
   }
 }
 </style>

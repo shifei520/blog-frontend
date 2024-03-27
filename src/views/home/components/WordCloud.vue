@@ -1,7 +1,8 @@
 <template>
   <div>
     <div class="world-cloud-canvas-wrapper">
-      <canvas id="world-cloud-canvas" width="200" height="200"></canvas>
+      <canvas id="world-cloud-canvas" :width="canvasWidth" :height="canvasWidth"></canvas>
+      <q-resize-observer @resize="onResize" />
     </div>
     <div style="display: none" id="weight-tags"></div>
   </div>
@@ -10,6 +11,7 @@
 import { onMounted, ref, watch } from 'vue';
 import { tagListGet } from '@/apis/articles/index';
 import type { TagItem } from '@/apis/types/articles-index';
+import { debounce } from '@/utils/utils';
 
 const wordArr = ref<TagItem[]>([]);
 
@@ -97,6 +99,12 @@ watch(
     }
   },
 );
+
+const canvasWidth = ref(200);
+const onResize = debounce((size: any) => {
+  canvasWidth.value = size.width;
+  startWorldCloud(true);
+});
 </script>
 <style lang="scss">
 .world-cloud-canvas-wrapper {

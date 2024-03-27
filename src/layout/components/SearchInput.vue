@@ -67,6 +67,8 @@ const clickOther = (event: any) => {
   transition: 0.5s;
 
   .header-search {
+    position: absolute;
+    right: 0;
     box-sizing: border-box;
     display: flex;
     align-items: center;

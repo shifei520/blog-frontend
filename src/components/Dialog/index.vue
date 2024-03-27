@@ -1,7 +1,7 @@
 <template>
   <Teleport to="body">
     <Transition name="fade">
-      <div class="sf-dialog" v-show="innerVisible">
+      <div class="sf-dialog hidden-scrollbar" v-bind="$attrs" v-show="innerVisible">
         <div class="sf-dialog-header">
           <span class="sf-dialog-title">{{ title }}</span>
           <svg-icon
@@ -50,7 +50,10 @@ watchEffect(() => {
   left: 50%;
   z-index: 2001;
   min-width: 200px;
+  max-width: 95vw;
+  max-height: 95vh;
   padding: 16px;
+  overflow-y: auto;
   background-color: #fff;
   border-radius: 4px;
   box-shadow:

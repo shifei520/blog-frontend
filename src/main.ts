@@ -3,7 +3,7 @@ import { createPinia } from 'pinia';
 import piniaPluginPersistedstate from 'pinia-plugin-persistedstate';
 import App from './App.vue';
 import router from './router';
-import { Quasar } from 'quasar';
+import { Quasar, BottomSheet } from 'quasar';
 import quasarLang from 'quasar/lang/zh-CN';
 // Import Quasar icon libraries
 import '@quasar/extras/material-icons/material-icons.css';
@@ -13,6 +13,7 @@ import 'virtual:svg-icons-register';
 import 'virtual:uno.css';
 import './assets/css/main.css';
 import './assets/css/common.scss';
+import './assets/css/media-viewport.scss'; // 媒体查询
 import 'animate.css';
 import globalComponents from './components/index';
 import globalDirectives from './directives/index';
@@ -31,7 +32,9 @@ dayjs.locale(zhCn);
 const app = createApp(App);
 
 app.use(Quasar, {
-  plugins: {},
+  plugins: {
+    BottomSheet,
+  },
   lang: quasarLang,
 });
 app.use(Toast, {

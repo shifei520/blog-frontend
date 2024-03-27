@@ -1,5 +1,5 @@
 <template>
-  <div class="profile-page">
+  <div class="profile-page hidden-scrollbar">
     <div class="header"></div>
     <main class="profile-main cneter-page-main">
       <!-- 导航列表 -->
@@ -71,6 +71,7 @@ const skipToDraft = () => {
 .profile-page {
   box-sizing: border-box;
   height: 100%;
+  overflow-y: auto;
 
   .header {
     width: 100%;

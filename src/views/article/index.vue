@@ -25,21 +25,27 @@
     </div>
     <div class="aside-menu">
       <DocumentationButton @click="skipToDocumentation" class="mb-[10px] w-full" />
-      <SubMenu @category-change="categoryChange" />
+      <SubMenu @category-change="categoryChange" :menuList="menuList" />
     </div>
+    <FloatButton @back-to-top="backToTop" @show-category="showCategory" />
   </div>
 </template>
 <script setup lang="ts" name="Article">
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
+import { useQuasar } from 'quasar';
 import ArticleItem from './components/ArticleItem.vue';
 import SubMenu from './components/SubMenu.vue';
-import { articleListGet } from '@/apis/articles/index';
+import { articleListGet, categoryListGet } from '@/apis/articles/index';
 import type {
   ArticleItem as ArticleItemType,
   ArticleListGetParams,
+  CategoryItem,
 } from '@/apis/types/articles-index';
 import DocumentationButton from './components/DocumentationButton.vue';
+import FloatButton from './components/FloatButton.vue';
+import DocumentationIcon from '@/assets/images/documentation_icon.png';
+import CategoryIcon from '@/assets/images/category_icon.png';
 
 const articleList = ref<ArticleItemType[]>([]);
 const queryForm = ref<ArticleListGetParams>({
@@ -75,6 +81,16 @@ const categoryChange = (id: number) => {
   infiniteScrollRef.value.poll();
 };
 
+const menuList = ref<CategoryItem[]>([]);
+/** 获取分类列表 */
+const getCategoryList = async () => {
+  const data = await categoryListGet();
+  if (data.code !== 200) return;
+
+  menuList.value = [{ id: -1, name: '所有' }, ...data.data];
+};
+getCategoryList();
+
 const router = useRouter();
 /** 跳转到文章详情页面 */
 const skipToDetail = (id: number) => {
@@ -84,6 +100,47 @@ const skipToDetail = (id: number) => {
 /** 跳转到文章归档页面 */
 const skipToDocumentation = () => {
   router.push('/documentation');
+};
+
+/** 返回滚动台顶部 */
+const backToTop = () => {
+  scrollTargetRef.value.scrollTo(0, 0);
+};
+
+const $q = useQuasar();
+/** 展示分类组件 */
+const showCategory = () => {
+  $q.bottomSheet({
+    message: '分类',
+    actions: [
+      {
+        label: '文章归档',
+        img: DocumentationIcon,
+        id: 'document',
+      },
+      {},
+      ...menuList.value.map((item) => {
+        return {
+          id: item.id,
+          label: item.name,
+          img: CategoryIcon,
+        };
+      }),
+    ],
+  })
+    .onOk((action) => {
+      if (action.id === 'document') {
+        skipToDocumentation();
+      } else {
+        categoryChange(action.id);
+      }
+    })
+    .onCancel(() => {
+      // console.log('Dismissed')
+    })
+    .onDismiss(() => {
+      // console.log('I am triggered on both OK and Cancel')
+    });
 };
 </script>
 <style lang="scss" scoped>

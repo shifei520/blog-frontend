@@ -1,0 +1,156 @@
+html {
+  font-size: 1vw;
+}
+
+@media screen and (width <= 1280px) {
+  html {
+    font-size: 2.08vw;
+  }
+
+  .cneter-page-main {
+    width: 98%;
+  }
+
+  .about-me {
+    flex-wrap: wrap;
+    justify-content: space-between;
+    height: auto !important;
+    padding-top: 1.25rem !important;
+
+    .self-introduction {
+      flex-basis: 100vw !important;
+      writing-mode: initial !important;
+    }
+  }
+}
+
+@media screen and (width <= 768px) {
+  html {
+    font-size: 4.26vw;
+  }
+
+  .main-content {
+    width: 100%;
+    padding: 0.625rem !important;
+  }
+
+  .app-info {
+    flex-wrap: wrap;
+  }
+
+  .media-about-me {
+    flex-wrap: wrap;
+    justify-content: center;
+    height: auto !important;
+
+    .self-introduction {
+      flex-basis: 100vw !important;
+      writing-mode: initial !important;
+    }
+  }
+
+  .recommend-articles {
+    grid-template-columns: 1fr !important;
+  }
+
+  .article-statistics {
+    grid-template-columns: repeat(3, 1fr) !important;
+    row-gap: 0.9375rem;
+  }
+
+  .article-page {
+    grid-template-columns: 1fr !important;
+
+    .aside-menu {
+      display: none;
+    }
+
+    .article-box {
+      padding: 0 0.625rem;
+    }
+
+    .float-button {
+      display: block !important;
+    }
+  }
+
+  .detail-article-page {
+    grid-template-columns: 1fr !important;
+    padding-right: 0.625rem !important;
+    padding-left: 0.625rem !important;
+
+    .article-menu {
+      display: none;
+    }
+
+    .article-suspended-panel {
+      top: unset !important;
+      right: 1.25rem;
+      bottom: 4rem;
+    }
+  }
+
+  .login {
+    padding: 0.625rem;
+
+    .container {
+      .container-form {
+        width: 100% !important;
+      }
+
+      .container-signup {
+        transform: translateX(100%);
+      }
+
+      .container-overlay {
+        display: none;
+      }
+
+      .mobile-btn {
+        display: initial !important;
+      }
+
+      &.right-panel-active {
+        .container-signup {
+          transform: translateX(0) !important;
+        }
+
+        .container-signin {
+          opacity: 0;
+        }
+      }
+    }
+  }
+
+  .nav-bar {
+    .menu-icon {
+      display: block !important;
+    }
+
+    .right-menu {
+      display: none !important;
+    }
+  }
+
+  .search-article-page,
+  .documentation-page {
+    padding-right: 0.625rem;
+    padding-left: 0.625rem;
+  }
+
+  .profile-main {
+    grid-template-columns: 1fr !important;
+
+    .form-item {
+      width: 100% !important;
+    }
+  }
+
+  .mobile-sf-dialog {
+    width: 95vw !important;
+
+    .form-item {
+      width: 100% !important;
+    }
+  }
+}

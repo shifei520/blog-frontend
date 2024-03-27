@@ -20,6 +20,27 @@ export const throttle = (fn: any, delay = 200) => {
 };
 
 /**
+ * 防抖函数
+ * @param fn
+ * @param delay
+ * @returns
+ */
+export const debounce = (fn: any, delay = 200) => {
+  let timer: any;
+
+  return function (...args: any) {
+    if (timer) {
+      clearTimeout(timer);
+    }
+
+    timer = setTimeout(() => {
+      fn.apply(this, args);
+      timer = null;
+    }, delay);
+  };
+};
+
+/**
  * 判断值是否为空
  * []、{}、0、''、undefined、null、NaN都视为空
  */

@@ -52,6 +52,7 @@
           </div>
           <q-btn size="lg" label="注册" type="submit" color="primary" class="confirm-btn" />
         </q-form>
+        <span @click="currentAction = 'signIn'" class="mobile-btn">去登陆</span>
       </div>
 
       <!-- 登陆 -->
@@ -81,6 +82,7 @@
           />
           <q-btn size="lg" label="登陆" type="submit" color="primary" class="confirm-btn" />
         </q-form>
+        <span @click="registerHandle" class="mobile-btn">没有账号？去注册</span>
       </div>
 
       <!-- 遮罩 -->
@@ -220,10 +222,6 @@ const loginHandle = async () => {
         flex: 1;
         flex-direction: column;
         margin-top: 30px;
-
-        .q-field {
-          // margin-top: 20px;
-        }
 
         .confirm-btn {
           width: 100%;
@@ -371,6 +369,14 @@ const loginHandle = async () => {
         transform: translate(0, 0.2em);
       }
     }
+  }
+
+  .mobile-btn {
+    display: none;
+    margin-top: 10px;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
   }
 }
 
