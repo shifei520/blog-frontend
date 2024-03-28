@@ -10,6 +10,7 @@ module.exports = {
     'max-line-length': 100,
     'scss/dollar-variable-pattern': null,
     'scss/at-mixin-pattern': null,
+    'media-feature-range-notation': 'prefix',
     'declaration-block-no-duplicate-properties': [
       true,
       {
