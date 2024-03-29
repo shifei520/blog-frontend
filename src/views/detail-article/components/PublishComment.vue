@@ -6,9 +6,12 @@
       class="textarea"
       v-model="content"
     ></textarea>
-    <button class="emote">
-      <svg-icon name="emote"></svg-icon>
-    </button>
+    <V3Emoji fix-pos="downleft" size="small" @click-emoji="clickEmoji">
+      <button class="emote">
+        <svg-icon name="emote"></svg-icon>
+      </button>
+    </V3Emoji>
+
     <span class="col-span-3"></span>
     <button class="publish-btn" @click="publish">
       <svg-icon name="publish"></svg-icon>
@@ -19,14 +22,20 @@
 import { ref } from 'vue';
 import { POSITION, useToast } from 'vue-toastification';
 import { publishComment } from '@/apis/articles/comment';
+import V3Emoji from 'vue3-emoji';
+import 'vue3-emoji/dist/style.css';
 
 const toast = useToast();
 const props = defineProps(['articleId']);
 const emit = defineEmits(['on-success']);
 
 const content = ref('');
+const loading = ref(false);
 
+/** 发布评论 */
 const publish = async () => {
+  if (loading.value) return;
+
   if (!content.value)
     return toast.error('评论内容不能为空', {
       position: POSITION.TOP_CENTER,
@@ -37,12 +46,24 @@ const publish = async () => {
     content: content.value,
   };
 
-  const data = await publishComment(params);
-  if (data.code !== 200) return;
+  loading.value = true;
 
-  toast.success('评论成功');
-  content.value = '';
-  emit('on-success');
+  try {
+    const data = await publishComment(params);
+    if (data.code !== 200) return;
+
+    toast.success('评论成功');
+    content.value = '';
+    emit('on-success');
+  } catch (error) {
+  } finally {
+    loading.value = false;
+  }
+};
+
+/** 选择表情 */
+const clickEmoji = (val: any) => {
+  content.value += val;
 };
 </script>
 <style lang="scss" scoped>

@@ -103,6 +103,9 @@ dependencies:
   vue-toastification:
     specifier: 2.0.0-rc.5
     version: 2.0.0-rc.5(vue@3.4.15)
+  vue3-emoji:
+    specifier: ^2.1.8
+    version: 2.1.8(vue@3.4.15)
 
 devDependencies:
   '@commitlint/cli':
@@ -7631,6 +7634,14 @@ packages:
       semver: 7.5.4
       typescript: 5.3.3
     dev: true
+
+  /vue3-emoji@2.1.8(vue@3.4.15):
+    resolution: {integrity: sha512-bG4TpwDuG3TVOoa8LzgWySgGbUmHt3g2hSj8E/WQ5UVXwD+yuDK4k0I8ktxEW8cTTOr4PsqWnqqBi153MLIpAg==}
+    peerDependencies:
+      vue: ^3.0.0
+    dependencies:
+      vue: 3.4.15(typescript@5.3.3)
+    dev: false
 
   /vue@3.4.15(typescript@5.3.3):
     resolution: {integrity: sha512-jC0GH4KkWLWJOEQjOpkqU1bQsBwf4R1rsFtw5GQJbjHVKWDzO6P0nWWBTmjp1xSemAioDFj1jdaK1qa3DnMQoQ==}

@@ -43,7 +43,7 @@
               clearable
               outlined
               v-model="formData.captcha"
-              placeholder="请输入验证码"
+              placeholder="验证码"
               mask="######"
               lazy-rules
               :rules="[(val) => (val && val.length > 0) || '验证码不能为空']"

@@ -7,6 +7,7 @@
           :value="modelValue"
           placeholder="搜索"
           @input="updateValue"
+          @keydown.enter="clickIcon"
           ref="inputEl"
         />
       </div>
@@ -46,6 +47,8 @@ const clickIcon = () => {
 };
 
 const updateValue = (e: any) => {
+  console.log(e);
+
   emits('input');
   emits('update:modelValue', e.target.value);
 };
