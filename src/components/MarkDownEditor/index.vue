@@ -267,8 +267,6 @@ const handleChange = (val: string) => {
 const imgDomain = import.meta.env.VITE_PUBLIC_PATH;
 /** 上传图片请求 */
 const httpHandle = async (file: File) => {
-  console.log(imgDomain);
-
   const fd = new FormData();
   fd.append('file', file);
   const data = await uploadCoverImg(fd);
