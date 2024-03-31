@@ -8,7 +8,7 @@
       <p class="article-abstract">{{ item.abstract }}</p>
       <div class="article-tags">
         <ul>
-          <li v-for="tag in item.tags" :key="tag.id">{{ tag.name }}</li>
+          <li v-for="tag in item.tags" :key="tag.id" @click.stop="skipPage(tag)">{{ tag.name }}</li>
         </ul>
       </div>
     </div>
@@ -25,19 +25,34 @@
   </div>
 </template>
 <script setup lang="ts" name="ArticleItem">
+import { useRouter } from 'vue-router';
+import type { TagItem } from '@/apis/types/articles-index';
+
 defineProps<{
   item: {
     id: number;
     title: string;
     abstract: string;
-    tags: any[];
+    tags: TagItem[];
     likesCount: number;
     views: number;
     coverImage: string;
     createTime: string;
   };
 }>();
+const router = useRouter();
 const imgDomain = import.meta.env.VITE_IMG_DOMAIN;
+
+/** 跳转标签 */
+const skipPage = (tag: TagItem) => {
+  router.push({
+    path: '/article/statistics',
+    query: {
+      tagId: tag.id,
+      title: tag.name,
+    },
+  });
+};
 </script>
 <style lang="scss" scoped>
 .article-item {
@@ -47,6 +62,7 @@ const imgDomain = import.meta.env.VITE_IMG_DOMAIN;
   background: #fff;
   border-radius: 5px;
   box-shadow: rgb(0 0 0 / 20%) 0 4px 2px -2px;
+  transition: all 0.3s;
 
   .blog-header {
     height: 240px;

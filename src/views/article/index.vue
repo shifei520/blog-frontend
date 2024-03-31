@@ -20,6 +20,11 @@
               @click="skipToDetail(item.id)"
             />
           </TransitionGroup>
+          <template v-slot:loading>
+            <div class="row justify-center q-my-md">
+              <SFDotLoading></SFDotLoading>
+            </div>
+          </template>
         </q-infinite-scroll>
       </div>
     </div>

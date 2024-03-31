@@ -23,7 +23,13 @@
           <div class="labels">
             <span class="label-title">标签：</span>
             <LabelItem :name="articleDetailInfo?.category?.name" />
-            <LabelItem v-for="tag in articleDetailInfo?.tags" :key="tag.id" v-bind="tag" />
+            <LabelItem
+              class="cursor-pointer"
+              v-for="tag in articleDetailInfo?.tags"
+              :key="tag.id"
+              v-bind="tag"
+              @click="skipPage(tag)"
+            />
           </div>
         </div>
       </section>
@@ -78,11 +84,11 @@
 </template>
 <script setup lang="ts" name="DetailArticle">
 import { ref, defineAsyncComponent, shallowRef, onMounted, nextTick, onBeforeUnmount } from 'vue';
-import { useRoute } from 'vue-router';
+import { useRoute, useRouter } from 'vue-router';
 import Particles from '@/components/Particles/index.vue';
 import { detailArticleById, addView, isLikedGet } from '@/apis/articles/index';
 import { commentListGet, likeAndUnlike } from '@/apis/articles/comment';
-import type { ArticleItem as ArticleItemType } from '@/apis/types/articles-index';
+import type { ArticleItem as ArticleItemType, TagItem } from '@/apis/types/articles-index';
 import type { CommentItem as CommentItemType } from '@/apis/types/article-comment';
 import { PaginationBar } from 'v-page';
 import type { PageInfo } from 'v-page';
@@ -98,6 +104,7 @@ import relativeTime from 'dayjs/plugin/relativeTime';
 dayjs.extend(relativeTime);
 const MarkDownEditor = defineAsyncComponent(() => import('@/components/MarkDownEditor/index.vue'));
 
+const router = useRouter();
 const route = useRoute();
 const articleId = ref(Number(route.params?.id));
 const articleDetailInfo = ref<ArticleItemType>({
@@ -249,6 +256,17 @@ const isLiked = async () => {
   liked.value = data.data;
 };
 isLiked();
+
+/** 跳转标签 */
+const skipPage = (tag: TagItem) => {
+  router.push({
+    path: '/article/statistics',
+    query: {
+      tagId: tag.id,
+      title: tag.name,
+    },
+  });
+};
 </script>
 <style lang="scss" scoped>
 .detail-article-page {

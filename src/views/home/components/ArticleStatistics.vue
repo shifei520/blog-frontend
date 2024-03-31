@@ -1,6 +1,11 @@
 <template>
   <div class="article-statistics">
-    <div class="article-item" v-for="(item, index) in articleStatisticsList" :key="index">
+    <div
+      class="article-item"
+      v-for="(item, index) in articleStatisticsList"
+      :key="index"
+      @click="skipPage(item)"
+    >
       <div class="article-document-bg"></div>
       <div class="article-card-content">
         <div class="article-card-content-header">
@@ -18,11 +23,13 @@
 <script setup lang="ts" name="ArticleStatistics">
 import { ref } from 'vue';
 import dayjs from 'dayjs';
+import { useRouter } from 'vue-router';
 import { statisticsArticleList } from '@/apis/articles/index';
 
 interface StatisticsItem {
   month: string;
   year: string;
+  yearMonth: string;
   count: number;
 }
 const articleStatisticsList = ref<StatisticsItem[]>([]);
@@ -37,10 +44,22 @@ const getArticleStatisticsList = async () => {
       month: dayjs(item.yearMonth).format('MMMM'),
       year: yearMonth[0],
       count: item.articleCount,
+      yearMonth: item.yearMonth,
     };
   });
 };
 getArticleStatisticsList();
+
+const router = useRouter();
+/** 跳转时间统计 */
+const skipPage = (item: StatisticsItem) => {
+  router.push({
+    path: '/article/statistics',
+    query: {
+      publishDate: item.yearMonth,
+    },
+  });
+};
 </script>
 <style lang="scss" scoped>
 .article-statistics {

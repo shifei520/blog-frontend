@@ -1,6 +1,6 @@
 <template>
   <div class="avator">
-    <div class="card" v-for="item in linkBtns" :key="item.icon">
+    <div class="card" v-for="item in linkBtns" :key="item.icon" @click="skipToPage(item)">
       <svg-icon :name="item.icon" :style="{ color: item.color }"></svg-icon>
     </div>
     <div class="avatar-img"></div>
@@ -8,8 +8,20 @@
   </div>
 </template>
 <script setup lang="ts" name="Avatar">
+import { useRouter } from 'vue-router';
+import { validateLink } from '@/utils/utils';
+
+const router = useRouter();
+
+interface LinkItem {
+  label?: string;
+  icon?: string;
+  color?: string;
+  link?: string;
+}
+
 // 链接按钮列表
-const linkBtns = [
+const linkBtns: LinkItem[] = [
   {
     label: 'GitHub',
     icon: 'github',
@@ -24,24 +36,34 @@ const linkBtns = [
   {
     label: 'Codepen',
     icon: 'codepen',
-    link: 'https://gitee.com/shifei_shifei',
+    link: 'https://codepen.io/features/pro',
   },
   {
     label: '掘金',
     icon: 'juejin',
     color: '#1e80ff',
-    link: 'https://gitee.com/shifei_shifei',
+    link: 'https://juejin.cn/user/3378163624713032',
   },
   {
     label: '朋友圈',
     icon: 'circle-friends',
-    link: 'https://gitee.com/shifei_shifei',
+    link: '/friends',
   },
   {},
   {},
   {},
   {},
 ];
+
+const skipToPage = (item: LinkItem) => {
+  if (!item.link) return;
+
+  if (validateLink(item.link)) {
+    window.open(item.link, '_blank');
+  } else {
+    router.push(item.link);
+  }
+};
 </script>
 <style lang="scss" scoped>
 .avator {

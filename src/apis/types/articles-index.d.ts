@@ -2,8 +2,8 @@
 export interface ArticleListGetParams {
   pageNo: number;
   pageSize: number;
-  keywords?: string;
-  categoryId?: number;
+  publishDate?: string;
+  tagId?: number;
 }
 
 /** 添加文章的参数类型 */

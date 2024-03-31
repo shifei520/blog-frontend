@@ -81,3 +81,11 @@ export const validateForm = (formData: any, rules: Rule) => {
 
   return true;
 };
+
+/** 校验是否为网址 */
+export const validateLink = (link: string) => {
+  const pattern =
+    /^(((ht|f)tps?):\/\/)?([^!@#$%^&*?.\s-]([^!@#$%^&*?.\s]{0,63}[^!@#$%^&*?.\s])?\.)+[a-z]{2,6}\/?/;
+
+  return pattern.test(link);
+};

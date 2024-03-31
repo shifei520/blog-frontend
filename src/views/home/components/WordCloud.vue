@@ -9,10 +9,12 @@
 </template>
 <script setup lang="ts" name="WordCloud">
 import { onMounted, ref, watch } from 'vue';
+import { useRouter } from 'vue-router';
 import { tagListGet } from '@/apis/articles/index';
 import type { TagItem } from '@/apis/types/articles-index';
 import { debounce } from '@/utils/utils';
 
+const router = useRouter();
 const wordArr = ref<TagItem[]>([]);
 
 /** 获取所有的标签 */
@@ -37,6 +39,15 @@ const createTagListDom = () => {
     }
     a.innerHTML = res[i].name;
     a.href = 'javascript:void(0)';
+    a.onclick = function () {
+      router.push({
+        path: '/article/statistics',
+        query: {
+          tagId: res[i].id,
+          title: res[i].name,
+        },
+      });
+    };
     // 如果是要加重展示就 设置属性为 huge 或large, 否则就设置属性为 medium 或small
     if (res[i].name.length < 3) {
       let readomValue = Math.random();
@@ -81,9 +92,9 @@ const startWorldCloud = (updateFlag?: boolean) => {
   try {
     // 如果不是更新，说明是第一次渲染，就启动 tagcanvas, 否则就代表更新
     if (!updateFlag) {
-      TagCanvas.Start('world-cloud-canvas', 'weight-tags', o);
+      window.TagCanvas.Start('world-cloud-canvas', 'weight-tags', o);
     } else {
-      TagCanvas.Update('world-cloud-canvas');
+      window.TagCanvas.Update('world-cloud-canvas');
     }
   } catch (e) {}
 };
