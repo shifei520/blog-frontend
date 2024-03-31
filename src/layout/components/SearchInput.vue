@@ -16,7 +16,7 @@
   </div>
 </template>
 <script setup lang="ts" name="SearchInput">
-import { ref, defineProps, defineEmits, onMounted, onBeforeUnmount, reactive } from 'vue';
+import { ref, onMounted, onBeforeUnmount, reactive } from 'vue';
 
 const props = defineProps({
   modelValue: String,

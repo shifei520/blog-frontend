@@ -30,7 +30,7 @@ import { recommendArticleList } from '@/apis/articles/index';
 import type { ArticleItem as ArticleItemType } from '@/apis/types/articles-index';
 import defaultImg from '@/assets/images/test-cover.jpeg';
 
-const imgDomain = import.meta.env.VITE_IMG_DOMAIN;
+const imgDomain = import.meta.env.VITE_PUBLIC_PATH;
 
 const articleList = ref<(ArticleItemType & { isShow: boolean })[]>([]);
 

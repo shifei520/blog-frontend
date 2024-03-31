@@ -41,7 +41,7 @@ defineProps<{
   };
 }>();
 const router = useRouter();
-const imgDomain = import.meta.env.VITE_IMG_DOMAIN;
+const imgDomain = import.meta.env.VITE_PUBLIC_PATH;
 
 /** 跳转标签 */
 const skipPage = (tag: TagItem) => {
