@@ -1,4 +1,4 @@
-FROM node:18.0-alpine3.14
+FROM node:18.18.0-alpine3.14
 # 第一阶段
 
 # 设置工作目录
