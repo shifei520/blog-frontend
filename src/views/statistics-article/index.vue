@@ -2,7 +2,7 @@
   <div class="statistics-article-page">
     <div class="header">
       <div class="statistics-title">
-        <span>{{ headerTitle }}</span>
+        <span>{{ headerTitle }}（{{ total }}）</span>
       </div>
     </div>
     <main class="statistics-main cneter-page-main">
@@ -57,6 +57,7 @@ const queryForm = ref<ArticleListGetParams>({
   tagId: Number(route.query?.tagId || null),
   publishDate: route.query?.publishDate as string,
 });
+const total = ref(0);
 
 const headerTitle = computed(() => {
   let label = '';
@@ -78,6 +79,7 @@ const getArticleList = async (index: number, done: any) => {
   const data = await articleListGet(queryForm.value);
   if (data.code !== 200) return;
 
+  total.value = data.data.totalCount;
   if (queryForm.value.pageNo * queryForm.value.pageSize < data.data.totalCount) {
     done && done();
   } else {
