@@ -55,7 +55,7 @@
       </section>
     </div>
     <!-- 侧边目录 -->
-    <aside class="article-menu">
+    <aside class="article-menu hidden-scrollbar">
       <div class="title">
         <span class="title-left">目录</span>
       </div>
@@ -332,7 +332,9 @@ const skipPage = (tag: TagItem) => {
     top: 58px;
     box-sizing: border-box;
     align-self: flex-start;
+    max-height: calc(100vh - 70px);
     padding: 0 20px 20px 0;
+    overflow-y: auto;
     background-color: $primaryBg;
     border-radius: 6px;
 
