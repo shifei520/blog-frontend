@@ -43,6 +43,7 @@ export default defineConfig(({ mode }) => {
       }),
     ],
     server: {
+      port: 8080,
       proxy: {
         [env.VITE_PREFIX_API]: {
           target: 'http://localhost:3000',

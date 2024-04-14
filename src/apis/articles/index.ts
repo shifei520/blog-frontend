@@ -24,9 +24,10 @@ export const articleListGet = (
 };
 
 /** 获取文章归档列表 */
-export const documentedArticleListGet = (
-  params: ArticleListGetParams,
-): Promise<PageResponse<ArticleItem>> => {
+export const documentedArticleListGet = (params: {
+  pageNo: number;
+  pageSize: number;
+}): Promise<PageResponse<ArticleItem>> => {
   return request({
     url: '/v1/article/timelist',
     method: 'GET',

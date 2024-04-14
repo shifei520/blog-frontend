@@ -54,7 +54,7 @@ const loadAll = ref(false);
 const queryForm = ref<ArticleListGetParams>({
   pageNo: 1,
   pageSize: 10,
-  tagId: Number(route.query?.tagId || null),
+  tagIds: route.query?.tagId ? [Number(route.query?.tagId)] : null,
   publishDate: route.query?.publishDate as string,
 });
 const total = ref(0);
@@ -65,7 +65,7 @@ const headerTitle = computed(() => {
   if (queryForm.value.publishDate) {
     label = '时间';
     title = queryForm.value.publishDate;
-  } else if (queryForm.value.tagId) {
+  } else if (queryForm.value.tagIds && queryForm.value.tagIds.length) {
     label = '标签';
   }
 
@@ -94,7 +94,7 @@ watch(
   (val: any) => {
     articleList.value = [];
     loadAll.value = false;
-    queryForm.value.tagId = val?.tagId;
+    queryForm.value.tagIds = val?.tagId ? [val?.tagId] : null;
     queryForm.value.publishDate = val?.publishDate;
     nextTick(() => {
       infiniteScrollRef.value.setIndex(0);
