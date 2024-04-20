@@ -29,8 +29,8 @@
     <main class="main-content cneter-page-main">
       <!-- 古诗词/名言警句 -->
       <div class="verse">
-        <p>当时只道是寻常...</p>
-        <p class="verse-author">—— 纳兰性德 《浣溪沙·谁念西风独自凉》</p>
+        <p>{{ poetryInfo?.content }}</p>
+        <p class="verse-author">—— {{ poetryInfo?.author }} {{ poetryInfo?.title }}</p>
       </div>
       <!-- 自我介绍 -->
       <section class="about-section">
@@ -85,6 +85,8 @@ import ArticleRecommend from './components/ArticleRecommend.vue';
 import ArticleStatistics from './components/ArticleStatistics.vue';
 import Overview from './components/Overview.vue';
 import Weather from './components/Weather.vue';
+import { poetryDetail } from '@/apis/home/index';
+import type { PoetryItem } from '@/apis/types/home';
 
 const threshold = ref(0);
 const bgTranslateY = ref(0);
@@ -152,6 +154,16 @@ const scrollPage = () => {
     behavior: 'smooth',
   });
 };
+
+const poetryInfo = ref<PoetryItem>();
+/** 获取诗词详情 */
+const getPoetryDetail = async () => {
+  const data = await poetryDetail();
+  if (data.code !== 200) return;
+
+  poetryInfo.value = data.data;
+};
+getPoetryDetail();
 </script>
 
 <style lang="scss" scoped>
