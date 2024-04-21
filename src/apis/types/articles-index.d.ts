@@ -15,6 +15,7 @@ export interface ArticleAddParams {
   coverImage?: string;
   content: string;
   title: string;
+  isPublish: boolean;
 }
 
 /** 文章标签 */

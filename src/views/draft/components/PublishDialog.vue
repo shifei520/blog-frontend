@@ -137,6 +137,7 @@ const formData = ref<ArticleAddParams>({
   coverImage: '',
   content: '',
   title: '',
+  isPublish: true,
 });
 const rules = {
   content: '请输入文章内容',
