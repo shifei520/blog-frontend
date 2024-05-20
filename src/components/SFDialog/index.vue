@@ -19,7 +19,7 @@
     <div class="sf-dialog-mask" v-show="innerVisible"></div>
   </Teleport>
 </template>
-<script setup lang="ts" name="Dialog">
+<script setup lang="ts" name="SFDialog">
 import { computed, watchEffect } from 'vue';
 
 const emit = defineEmits(['update:visible', 'on-close']);

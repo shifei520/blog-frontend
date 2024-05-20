@@ -1,5 +1,5 @@
 <template>
-  <Dialog title="发布文章" v-model:visible="visible" class="mobile-sf-dialog">
+  <SFDialog title="发布文章" v-model:visible="visible" class="mobile-sf-dialog">
     <form class="mt-10">
       <div class="form-item">
         <span class="form-item-title leading-[32px] required">文章标题:</span>
@@ -64,13 +64,13 @@
       <div class="cancel-btn mr-[20px]" @click="visible = false">取消</div>
       <div class="confirm-btn" @click="submit">确定</div>
     </div>
-  </Dialog>
+  </SFDialog>
 </template>
 <script setup lang="ts" name="PublishDialog">
 import { ref, watch } from 'vue';
 import { SelectPageList } from 'v-selectpage';
 import type { PageParameters, FetchDataCallback } from 'v-selectpage';
-import Dialog from '@/components/Dialog/index.vue';
+import SFDialog from '@/components/SFDialog/index.vue';
 import { categoryListGet, tagListGet, uploadCoverImg, articleAdd } from '@/apis/articles/index';
 import type { ArticleAddParams, CategoryItem, TagItem } from '@/apis/types/articles-index';
 import SFUpload from '@/components/SFUpload/index.vue';

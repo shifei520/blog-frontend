@@ -13,7 +13,12 @@
     <svg-icon name="menu" class="menu-icon" @click="openDrawerMenu"></svg-icon>
     <ul class="right-menu">
       <li class="search-item"></li>
-      <li class="menu-item" v-for="item in menuList" :key="item.code" @click="skipMenu(item.path)">
+      <li
+        class="menu-item"
+        v-for="item in menuList"
+        :key="item.code"
+        @click="skipMenu(item.path, item.blank)"
+      >
         <svg-icon :name="item.icon"></svg-icon>
         <span class="ml-[3px]">{{ item.title }}</span>
       </li>
@@ -46,7 +51,7 @@
           class="mobile-menu-item"
           v-for="item in menuList"
           :key="item.code"
-          @click="skipMenu(item.path)"
+          @click="skipMenu(item.path, item.blank)"
         >
           <svg-icon :name="item.icon"></svg-icon>
           <span class="ml-[3px]">{{ item.title }}</span>
@@ -68,14 +73,7 @@
   </div>
 </template>
 <script setup lang="ts" name="NavBar">
-import {
-  computed,
-  defineAsyncComponent,
-  onBeforeMount,
-  onBeforeUnmount,
-  onMounted,
-  ref,
-} from 'vue';
+import { computed, defineAsyncComponent, onBeforeMount, onMounted, ref } from 'vue';
 import { useToast } from 'vue-toastification';
 import { Dropdown } from 'v-dropdown';
 import { useRouter, useRoute } from 'vue-router';
@@ -109,19 +107,33 @@ const menuList = ref([
     path: '/home',
     code: 'home',
     icon: 'home',
+    blank: false,
   },
   {
     title: '文章',
     path: '/article',
     code: 'article',
     icon: 'book-open',
+    blank: false,
+  },
+  {
+    title: '百宝箱',
+    path: '/treasure-box',
+    code: 'treasureBox',
+    icon: 'treasure-box',
+    blank: true,
   },
 ]);
 
 /** 跳转路由 */
-const skipMenu = (path: string) => {
+const skipMenu = (path: string, blank = false) => {
   drawerVisible.value = false;
-  router.push(path);
+  if (blank) {
+    const routeLocation = router.resolve(path);
+    window.open(routeLocation.fullPath, '_blank');
+  } else {
+    router.push(path);
+  }
 };
 
 const lastScrollTop = ref(0);

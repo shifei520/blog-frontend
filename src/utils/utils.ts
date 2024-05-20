@@ -58,6 +58,29 @@ export const isEmpty = (val: any): boolean => {
   }
 };
 
+/**
+ * 根据节点id返回树状数据中的节点数据
+ * @param tree
+ * @param id
+ * @returns
+ */
+export const findTreeItem = (tree: any[], id: number): any => {
+  for (let i = 0; i < tree.length; i++) {
+    const item = tree[i];
+
+    if (item.id === id) {
+      return item;
+    }
+
+    if (item.children) {
+      const res = findTreeItem(item.children, id);
+      if (res) {
+        return res;
+      }
+    }
+  }
+};
+
 interface Rule {
   [key: string]: string;
 }
@@ -88,4 +111,11 @@ export const validateLink = (link: string) => {
     /^(((ht|f)tps?):\/\/)?([^!@#$%^&*?.\s-]([^!@#$%^&*?.\s]{0,63}[^!@#$%^&*?.\s])?\.)+[a-z]{2,6}\/?/;
 
   return pattern.test(link);
+};
+
+/** 校验是否为邮箱 */
+export const validateEmail = (email: string) => {
+  const pattern = /^[A-Za-z0-9\u4e00-\u9fa5]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;
+
+  return pattern.test(email);
 };

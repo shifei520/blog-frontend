@@ -16,7 +16,7 @@
         @click="addEditDialog(item)"
       />
     </div>
-    <Dialog :title="dialogTitle" v-model:visible="visible" @on-close="closeHandle">
+    <SFDialog :title="dialogTitle" v-model:visible="visible" @on-close="closeHandle">
       <q-form @submit="onSubmit" @reset="onReset" class="mt-[15px]">
         <q-input
           dense
@@ -50,7 +50,7 @@
           <q-btn label="确认" type="submit" color="primary" size="sm" />
         </div>
       </q-form>
-    </Dialog>
+    </SFDialog>
   </div>
 </template>
 <script setup lang="ts" name="TagManager">
@@ -60,7 +60,7 @@ import type { TagItem } from '@/apis/types/articles-index';
 import { addTag, editTag } from '@/apis/profile/index';
 import type { EditTag } from '@/apis/types/profile-index';
 import LabelItem from '@/views/home/components/LabelItem.vue';
-import Dialog from '@/components/Dialog/index.vue';
+import SFDialog from '@/components/SFDialog/index.vue';
 import { useToast } from 'vue-toastification';
 
 const toast = useToast();

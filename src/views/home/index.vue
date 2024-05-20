@@ -11,7 +11,6 @@
         <!-- 时间和天气信息 -->
         <div class="app-info">
           <div class="time">{{ nowDate }}</div>
-          <!-- <div class="weather"></div> -->
           <Weather class="ml-[15px]" />
         </div>
         <!-- 菜单列表 -->
@@ -20,7 +19,7 @@
             v-for="item in menuList"
             :key="item.code"
             :title="item.title"
-            @click="skipMenu(item.path)"
+            @click="skipMenu(item.path, item.blank)"
           />
         </div>
       </div>
@@ -139,12 +138,24 @@ const menuList = [
     title: '文章',
     path: '/article',
     code: 'article',
+    blank: false,
+  },
+  {
+    title: '百宝箱',
+    path: '/treasure-box',
+    code: 'treasureBox',
+    blank: true,
   },
 ];
 const router = useRouter();
 /** 跳转路由 */
-const skipMenu = (path: string) => {
-  router.push(path);
+const skipMenu = (path: string, blank = false) => {
+  if (blank) {
+    const routeLocation = router.resolve(path);
+    window.open(routeLocation.fullPath, '_blank');
+  } else {
+    router.push(path);
+  }
 };
 
 /** 翻页滚动 */

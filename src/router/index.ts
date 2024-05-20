@@ -53,6 +53,11 @@ const router = createRouter({
       name: 'Draft',
     },
     {
+      path: '/treasure-box',
+      component: () => import('@/views/treasure-box/index.vue'),
+      name: 'TreasureBox',
+    },
+    {
       path: '/login',
       component: () => import('@/views/login/Index.vue'),
       name: 'Login',
