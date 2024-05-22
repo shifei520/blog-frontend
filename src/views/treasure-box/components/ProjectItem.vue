@@ -33,7 +33,10 @@ const skip = () => {
   overflow: hidden;
   color: #fff;
   cursor: pointer;
-  background-color: #313131;
+  background:
+    linear-gradient(to bottom, rgb(255 255 255 / 15%) 0%, rgb(0 0 0 / 15%) 100%),
+    radial-gradient(at top center, rgb(255 255 255 / 40%) 0%, rgb(0 0 0 / 40%) 120%) #989898;
+  background-blend-mode: multiply, multiply;
   border-radius: 4px;
   box-shadow:
     0 3px 1px -2px rgb(0 0 0 / 20%),

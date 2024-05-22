@@ -11,7 +11,7 @@
         <input hidden type="radio" :id="item.id + ''" name="firstLevel" />
         <label :for="item.id + ''">
           <div class="item-content">
-            <span class="menu-icon"></span>
+            <span class="menu-icon" v-html="item.icon"></span>
             <span class="menu-title">{{ item.name }}</span>
           </div>
         </label>
@@ -89,6 +89,24 @@ watch(
       position: relative;
       transition: all 0.3s;
 
+      :deep(.menu-icon) {
+        display: flex;
+        align-items: center;
+        width: 35px;
+        min-width: 35px;
+        height: 35px;
+        font-size: 1.2rem;
+        line-height: 35px;
+        text-align: center;
+        transition: color 0.3s;
+
+        svg {
+          width: 16px;
+          height: 16px;
+          fill: #7d84ab;
+        }
+      }
+
       .item-content {
         display: flex;
         align-items: center;
@@ -98,6 +116,10 @@ watch(
 
         &:hover {
           color: #dee2ec;
+
+          :deep(.menu-icon) svg {
+            fill: #dee2ec;
+          }
         }
       }
 
@@ -132,6 +154,11 @@ watch(
       > input:checked {
         + label {
           color: #dee2ec;
+
+          /* stylelint-disable-next-line no-descending-specificity */
+          :deep(.menu-icon) svg {
+            fill: #dee2ec;
+          }
         }
 
         ~ .sub-menu-list {
@@ -142,19 +169,6 @@ watch(
       &.active-menu {
         color: #dee2ec;
       }
-    }
-
-    .menu-icon {
-      display: inline-block;
-      width: 35px;
-      min-width: 35px;
-      height: 35px;
-      margin-right: 10px;
-      font-size: 1.2rem;
-      line-height: 35px;
-      text-align: center;
-      border-radius: 2px;
-      transition: color 0.3s;
     }
 
     .menu-title {

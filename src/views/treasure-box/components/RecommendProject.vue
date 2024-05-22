@@ -29,8 +29,10 @@
         </q-select>
         <q-select
           v-model="form.tagIds"
-          :options="tagList"
+          :options="options"
           label="项目标签"
+          use-input
+          @filter="filterFn"
           multiple
           option-value="id"
           option-label="name"
@@ -84,6 +86,21 @@ const props = withDefaults(
     tagList: () => [],
   },
 );
+
+const options = ref<TagItem[]>(props.tagList);
+const filterFn = (val: string, update: any) => {
+  if (val === '') {
+    update(() => {
+      options.value = props.tagList;
+    });
+    return;
+  }
+
+  update(() => {
+    const needle = val.toLowerCase();
+    options.value = props.tagList.filter((v) => v.name.toLowerCase().indexOf(needle) > -1);
+  });
+};
 
 const form = ref({
   name: '',
