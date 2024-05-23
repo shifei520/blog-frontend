@@ -71,6 +71,7 @@ watch(
       loadAll.value = false;
       projectList.value = [];
       infiniteScrollRef.value.setIndex(0);
+      infiniteScrollRef.value.poll();
     }
   },
 );
