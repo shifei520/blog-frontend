@@ -54,7 +54,9 @@ const props = withDefaults(
 const currentMenu = ref(0);
 const openMenu = (item: MenuItem) => {
   currentMenu.value = item.id;
+  if (item.children && item.children.length) return;
   treasureStore.setTreasureMenuId(item.id);
+  console.log(item.id);
 };
 
 watch(

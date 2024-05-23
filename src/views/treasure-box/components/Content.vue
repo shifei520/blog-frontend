@@ -14,9 +14,6 @@
         <SFLoading />
       </template>
     </q-infinite-scroll>
-    <!-- <q-inner-loading :showing="loading">
-      <SFLoading />
-    </q-inner-loading> -->
   </div>
 </template>
 <script setup lang="ts" name="Content">
@@ -67,6 +64,8 @@ const getProjectList = async (index: number, done: () => void) => {
 watch(
   () => treasureStore.treasureMenuId,
   (id) => {
+    console.log('watch', id);
+
     if (id) {
       form.value.categoryId = id;
       loadAll.value = false;
