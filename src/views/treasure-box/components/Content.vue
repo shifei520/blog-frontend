@@ -64,8 +64,6 @@ const getProjectList = async (index: number, done: () => void) => {
 watch(
   () => treasureStore.treasureMenuId,
   (id) => {
-    console.log('watch', id);
-
     if (id) {
       form.value.categoryId = id;
       loadAll.value = false;
