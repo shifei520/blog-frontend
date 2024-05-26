@@ -11,7 +11,8 @@
         <input hidden type="radio" :id="item.id + ''" name="firstLevel" />
         <label :for="item.id + ''">
           <div class="item-content">
-            <span class="menu-icon" v-html="item.icon"></span>
+            <!-- <span class="menu-icon" v-html="item.icon"></span> -->
+            <svg-icon name="code" class="mr-[10px]"></svg-icon>
             <span class="menu-title">{{ item.name }}</span>
           </div>
         </label>

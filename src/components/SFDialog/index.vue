@@ -83,6 +83,7 @@ watchEffect(() => {
 .sf-dialog-mask {
   position: fixed;
   inset: 0;
+  z-index: 2000;
   background-color: rgba(0 0 0 / 50%);
 }
 

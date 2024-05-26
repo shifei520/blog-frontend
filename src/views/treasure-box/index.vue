@@ -1,5 +1,5 @@
 <template>
-  <q-layout view="hHh LpR fFf">
+  <q-layout view="hHh LpR fFf" class="bg-[#f9f9f9]">
     <q-header elevated class="bg-black text-white">
       <q-toolbar>
         <q-btn dense flat round icon="menu" @click="toggleLeftDrawer" />
@@ -107,4 +107,3 @@ const recommendHandle = () => {
   }
 }
 </style>
-@/apis/treasure-box

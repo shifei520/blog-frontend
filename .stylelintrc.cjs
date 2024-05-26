@@ -17,5 +17,11 @@ module.exports = {
         ignore: ['consecutive-duplicates-with-different-values'],
       },
     ],
+    'selector-class-pattern': [
+      '^([a-z][a-z0-9]*)(-[a-z0-9]+)*$|^q-',
+      {
+        message: (selector) => `Expected class selector "${selector}" to be kebab-case`,
+      },
+    ],
   },
 };
