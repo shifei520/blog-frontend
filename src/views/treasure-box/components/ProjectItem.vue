@@ -107,24 +107,26 @@ const skip = () => {
     transition-delay: 0.15s;
   }
 
-  &:hover {
-    &::before,
-    &::after {
-      transform: scaleX(0);
-    }
-
-    .text {
-      .project-title,
-      .project-description,
-      .tags-group {
-        color: #fff;
-        opacity: 0;
-        transform: translateY(10px);
+  &.show-img {
+    &:hover {
+      &::before,
+      &::after {
+        transform: scaleX(0);
       }
-    }
 
-    .project-img {
-      transform: scale(1.1);
+      .text {
+        .project-title,
+        .project-description,
+        .tags-group {
+          color: #fff;
+          opacity: 0;
+          transform: translateY(10px);
+        }
+      }
+
+      .project-img {
+        transform: scale(1.1);
+      }
     }
   }
 }
