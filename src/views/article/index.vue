@@ -3,30 +3,16 @@
     <!-- 背景 -->
     <div class="article-bg"></div>
     <div class="article-box">
-      <!-- <div class="filter-btn">筛选</div> -->
-      <div class="article-list hidden-scrollbar" ref="scrollTargetRef">
-        <q-infinite-scroll
-          @load="getArticleList"
-          :offset="250"
-          :scroll-target="scrollTargetRef"
-          :disable="loadAll"
-          ref="infiniteScrollRef"
-        >
-          <TransitionGroup enter-active-class="animated animate__fadeInLeft">
-            <ArticleItem
-              v-for="item in articleList"
-              :key="item.id"
-              :item="item"
-              @click="skipToDetail(item.id)"
-            />
-          </TransitionGroup>
-          <template v-slot:loading>
-            <div class="row justify-center q-my-md">
-              <SFDotLoading></SFDotLoading>
-            </div>
-          </template>
-        </q-infinite-scroll>
-      </div>
+      <SFInfiniteScroll ref="scrollTargetRef" @load="getArticleList" :disable="loadAll">
+        <TransitionGroup enter-active-class="animated animate__fadeInLeft">
+          <ArticleItem
+            v-for="item in articleList"
+            :key="item.id"
+            :item="item"
+            @click="skipToDetail(item.id)"
+          />
+        </TransitionGroup>
+      </SFInfiniteScroll>
     </div>
     <div class="aside-menu">
       <DocumentationButton @click="skipToDocumentation" class="mb-[10px] w-full" />
@@ -51,6 +37,7 @@ import DocumentationButton from './components/DocumentationButton.vue';
 import FloatButton from './components/FloatButton.vue';
 import DocumentationIcon from '@/assets/images/documentation_icon.png';
 import CategoryIcon from '@/assets/images/category_icon.png';
+import SFInfiniteScroll from '@/components/SFInfiniteScroll/index.vue';
 
 const articleList = ref<ArticleItemType[]>([]);
 const queryForm = ref<ArticleListGetParams>({
@@ -58,32 +45,33 @@ const queryForm = ref<ArticleListGetParams>({
   pageSize: 10,
   categoryId: -1,
 });
-const loadAll = ref(false);
 const scrollTargetRef = ref();
-const infiniteScrollRef = ref();
+const loadAll = ref(false);
 
 /** 获取文章列表 */
-const getArticleList = async (index: number, done: any) => {
-  queryForm.value.pageNo = index;
+const getArticleList = async (flag = false) => {
+  if (flag === true) {
+    queryForm.value.pageNo = 1;
+    articleList.value = [];
+  }
 
   const data = await articleListGet(queryForm.value);
   if (data.code !== 200) return;
 
   if (queryForm.value.pageNo * queryForm.value.pageSize < data.data.totalCount) {
-    done && done();
+    queryForm.value.pageNo += 1;
   } else {
     loadAll.value = true;
   }
   articleList.value = [...articleList.value, ...data.data.list];
 };
+getArticleList(true);
 
 /** 文章分类改变 */
 const categoryChange = (id: number) => {
   queryForm.value.categoryId = id;
-  articleList.value = [];
   loadAll.value = false;
-  infiniteScrollRef.value.setIndex(0);
-  infiniteScrollRef.value.poll();
+  getArticleList(true);
 };
 
 const menuList = ref<CategoryItem[]>([]);
@@ -109,7 +97,7 @@ const skipToDocumentation = () => {
 
 /** 返回滚动台顶部 */
 const backToTop = () => {
-  scrollTargetRef.value.scrollTo(0, 0);
+  scrollTargetRef.value.backToTop();
 };
 
 const $q = useQuasar();
@@ -187,17 +175,7 @@ const showCategory = () => {
   }
 
   .article-box {
-    .filter-btn {
-      display: flex;
-      align-items: center;
-      height: 30px;
-      border-bottom: 1px solid $infoColor;
-    }
-
-    .article-list {
-      height: calc(100vh - 78px);
-      overflow-y: auto;
-    }
+    height: calc(100vh - 78px);
   }
 
   .aside-menu {

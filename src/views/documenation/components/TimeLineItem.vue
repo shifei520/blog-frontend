@@ -1,8 +1,8 @@
 <template>
-  <div class="timeline-item" :data-text="item.title" @click="skipToArticleDetail">
+  <div class="timeline-item" :data-text="item.createTime" @click="skipToArticleDetail">
     <div class="timeline-content">
       <img class="timeline-img" v-if="item.coverImage" :src="imgDomain + item.coverImage" />
-      <h2 class="timeline-content-title">{{ item.createTime }}</h2>
+      <h2 class="timeline-content-title">{{ item.title }}</h2>
       <p class="timeline-content-desc">
         {{ item.abstract }}
       </p>
@@ -94,6 +94,7 @@ const skipToArticleDetail = () => {
       font-size: 40px;
       font-weight: normal;
       color: #fff;
+      word-break: break-all;
       transition: 0.4s;
     }
 
@@ -124,6 +125,7 @@ const skipToArticleDetail = () => {
       padding: 0 !important;
       text-align: center !important;
       border: none !important;
+      writing-mode: vertical-lr;
     }
 
     &:last-child {

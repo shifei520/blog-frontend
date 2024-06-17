@@ -133,6 +133,7 @@ onBeforeUnmount(() => {
     height: 100%;
     overflow-y: auto;
     background-attachment: fixed;
+    background-position: center;
     background-size: cover;
     border-radius: 6px;
     transition: 0.3s ease 0s;
