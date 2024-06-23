@@ -8,13 +8,10 @@
           <img class="logo" src="@/assets/images/logo.png" alt="" />
           <h2>时不待我</h2>
         </div>
-        <q-btn
-          class="ml-auto"
-          color="white"
-          text-color="black"
-          label="推荐项目"
-          @click="recommendHandle"
-        />
+        <q-space />
+        <HeaderSearch :menuList="menuList" :tagList="tagList" />
+        <q-space />
+        <RecommendBtn class="ml-auto" @click="recommendHandle" />
       </q-toolbar>
     </q-header>
 
@@ -22,7 +19,7 @@
       <SideMenu :menuList="menuList" />
     </q-drawer>
 
-    <q-page-container><Content /></q-page-container>
+    <q-page-container><Content :menuList="menuList" :tagList="tagList" /></q-page-container>
     <RecommendProjectDialog
       ref="recommendProjectDialogRef"
       :menuList="menuList"
@@ -38,6 +35,8 @@ import SideMenu from './components/SideMenu.vue';
 import Content from './components/Content.vue';
 import { menuListGet, tagListGet } from '@/apis/treasure-box/index';
 import type { MenuItem, TagItem } from '@/apis/types/treasure';
+import HeaderSearch from './components/HeaderSearch.vue';
+import RecommendBtn from './components/RecommendBtn.vue';
 
 const RecommendProjectDialog = defineAsyncComponent(
   () => import('./components/RecommendProject.vue'),
@@ -57,7 +56,22 @@ const getMenuList = async () => {
   const data = await menuListGet();
   if (data.code !== 200) return;
 
-  menuList.value = data.data;
+  /** 递归遍历树，添加节点禁止x选中属性 */
+  const recursionTree = (tree: MenuItem[]) => {
+    const recursion = (node: MenuItem) => {
+      if (!node.children || !node.children.length) {
+        return node;
+      } else {
+        node.selectable = false;
+        node.children.map(recursion);
+        return node;
+      }
+    };
+
+    return tree.map(recursion);
+  };
+
+  menuList.value = recursionTree(data.data);
 };
 getMenuList();
 

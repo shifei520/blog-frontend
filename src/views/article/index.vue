@@ -128,12 +128,8 @@ const showCategory = () => {
         categoryChange(action.id);
       }
     })
-    .onCancel(() => {
-      // console.log('Dismissed')
-    })
-    .onDismiss(() => {
-      // console.log('I am triggered on both OK and Cancel')
-    });
+    .onCancel(() => {})
+    .onDismiss(() => {});
 };
 </script>
 <style lang="scss" scoped>

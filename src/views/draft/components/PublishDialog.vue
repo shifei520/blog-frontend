@@ -1,6 +1,6 @@
 <template>
   <SFDialog title="发布文章" v-model:visible="visible" class="mobile-sf-dialog">
-    <form class="mt-10">
+    <form class="sf-form mt-10">
       <div class="form-item">
         <span class="form-item-title leading-[32px] required">文章标题:</span>
         <div class="form-item-content">

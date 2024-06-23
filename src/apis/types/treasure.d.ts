@@ -3,6 +3,7 @@ export interface MenuItem {
   name: string;
   parentId: number | null;
   icon?: string;
+  selectable?: boolean;
   children?: MenuItem[];
 }
 
