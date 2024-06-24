@@ -1,7 +1,7 @@
 <template>
-  <SFDialog title="推荐项目" v-model:visible="visible">
+  <SFDialog title="推荐项目" v-model:visible="visible" @on-close="onReset">
     <div class="content">
-      <q-form @submit="onSubmit" @reset="onReset" class="q-gutter-md">
+      <q-form @submit="onSubmit" class="q-gutter-md" ref="formRef">
         <q-input
           v-model="form.name"
           label="项目名称"
@@ -60,7 +60,7 @@
         />
         <div>
           <q-btn label="提交" type="submit" color="primary" />
-          <q-btn label="重置" type="reset" color="primary" flat class="q-ml-sm" />
+          <q-btn label="重置" type="reset" color="primary" flat class="q-ml-sm" @click="onReset" />
         </div>
       </q-form>
     </div>
@@ -126,9 +126,11 @@ const onSubmit = async () => {
   visible.value = false;
 };
 
+const formRef = ref(null);
 const onReset = () => {
   form.value.categoryId = null;
   form.value.tagIds = null;
+  formRef.value?.reset();
 };
 
 const visible = ref(false);
@@ -137,6 +139,7 @@ const visible = ref(false);
 const openDialog = () => {
   visible.value = true;
 };
+
 defineExpose({
   openDialog,
 });

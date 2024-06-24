@@ -35,9 +35,9 @@ import { computed, ref } from 'vue';
 const emit = defineEmits(['update:modelValue']);
 
 const sizeMap: Record<string, string> = {
-  small: '24px',
-  medium: '32px',
-  large: '40px',
+  small: '1.5rem',
+  medium: '2rem',
+  large: '2.5rem',
 };
 
 const props = withDefaults(

@@ -151,6 +151,10 @@ watch(
         > ul {
           min-height: 0;
         }
+
+        .item-content {
+          padding-left: 40px;
+        }
       }
 
       > input:checked {
