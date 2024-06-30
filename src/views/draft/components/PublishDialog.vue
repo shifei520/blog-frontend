@@ -115,11 +115,8 @@ const progress = ref(0);
 const httpHandle = async (file: File) => {
   progress.value = 0;
 
-  const fd = new FormData();
-  fd.append('file', file);
-  const data = await uploadCoverImg(fd, onUploadProgress);
-  if (data.code !== 200) return;
-  formData.value.coverImage = data.data;
+  const data = await uploadCoverImg(file, onUploadProgress);
+  formData.value.coverImage = data;
   toast.success('上传成功');
 };
 

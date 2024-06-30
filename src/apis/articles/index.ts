@@ -1,3 +1,4 @@
+import axios from 'axios';
 import request from '@/utils/request';
 import type { AxiosProgressEvent } from 'axios';
 import type { NormalResponse, PageResponse } from '../types/common';
@@ -52,20 +53,30 @@ export const tagListGet = (): Promise<NormalResponse<TagItem[]>> => {
 };
 
 /** 上传封面 */
-export const uploadCoverImg = (
-  data: FormData,
+export const uploadCoverImg = async (
+  file: File,
   onUploadProgress?: (progressEvent: AxiosProgressEvent) => void,
-): Promise<NormalResponse<string>> => {
-  return request({
-    url: '/v1/upload/img',
-    method: 'POST',
-    data,
+): Promise<string> => {
+  const data = await request({
+    url: '/v1/upload/presignedUrl',
+    method: 'GET',
+    params: {
+      name: file.name,
+    },
     headers: {
       'Content-Type': 'multipart/form-data',
       requireToken: true,
     },
+  });
+
+  await axios({
+    url: data.data,
+    method: 'PUT',
+    data: file,
     onUploadProgress,
   });
+
+  return '/img/' + file.name;
 };
 
 /** 添加文章 */

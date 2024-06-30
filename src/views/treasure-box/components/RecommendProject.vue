@@ -54,7 +54,7 @@
         <q-input
           v-model="form.email"
           label="您的邮箱"
-          hint="项目审核通过后像该邮箱发送通知"
+          hint="项目审核通过后向该邮箱发送通知"
           lazy-rules
           :rules="[(val) => !val || validateEmail(val) || '邮箱格式不正确']"
         />

@@ -1,7 +1,7 @@
 <template>
   <div class="profile-information">
     <div class="nav-text">个人资料</div>
-    <form class="mt-10">
+    <form class="mt-10 sf-form">
       <div class="form-item">
         <span class="form-item-title leading-[32px]">昵称:</span>
         <div class="form-item-content">
