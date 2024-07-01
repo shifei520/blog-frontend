@@ -28,6 +28,8 @@ import 'bytemd/dist/index.css';
 import dayjs from 'dayjs';
 import zhCn from 'dayjs/locale/zh-cn';
 dayjs.locale(zhCn);
+import V3waterfall from 'v3-waterfall';
+import 'v3-waterfall/dist/style.css';
 
 const app = createApp(App);
 
@@ -50,4 +52,10 @@ app.use(VueLazyload, {
 });
 const pinia = createPinia();
 pinia.use(piniaPluginPersistedstate);
-app.use(pinia).use(router).use(globalComponents).use(globalDirectives).mount('#app');
+app
+  .use(pinia)
+  .use(router)
+  .use(globalComponents)
+  .use(globalDirectives)
+  .use(V3waterfall)
+  .mount('#app');

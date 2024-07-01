@@ -91,6 +91,9 @@ dependencies:
   v-selectpage:
     specifier: ^3.0.1
     version: 3.0.1(vue@3.4.15)
+  v3-waterfall:
+    specifier: 2.0.0-beta.5
+    version: 2.0.0-beta.5
   vue:
     specifier: ^3.3.11
     version: 3.4.15(typescript@5.3.3)
@@ -184,7 +187,7 @@ devDependencies:
     specifier: ~5.3.0
     version: 5.3.3
   unocss:
-    specifier: ^0.58.3
+    specifier: 0.58.3
     version: 0.58.3(postcss@8.4.33)(vite@5.0.12)
   vite:
     specifier: ^5.0.10
@@ -7449,6 +7452,10 @@ packages:
     dependencies:
       v-dropdown: 3.0.0(vue@3.4.15)
       vue: 3.4.15(typescript@5.3.3)
+    dev: false
+
+  /v3-waterfall@2.0.0-beta.5:
+    resolution: {integrity: sha512-35dmGeXlxrtXXG2/lWgrD8hSqKFnc2Z0mgyx1rT2O6cOirXMeJDEyh9JTDLQkx10aEePVJJcy+k820jzsCLx6Q==}
     dev: false
 
   /validate-npm-package-license@3.0.4:

@@ -32,24 +32,28 @@
         <div class="confirm-btn" @click="search">搜索</div>
       </div>
     </form>
-    <q-infinite-scroll
-      @load="getProjectList"
-      :offset="250"
-      :disable="loadAll"
-      ref="infiniteScrollRef"
-      scroll-target="body"
+
+    <v3-waterfall
+      v-if="projectList.length"
+      ref="waterfallRef"
+      :list="projectList"
+      :isLoading="loading"
+      :isOver="loadAll"
+      @scrollReachBottom="getProjectList"
+      :gap="10"
+      :distanceToScroll="100"
     >
-      <div class="project-list">
-        <ProjectItem v-for="item in projectList" :key="item.id" :item="item" />
-      </div>
+      <template v-slot:default="{ item }">
+        <ProjectItem :key="item.id" :item="item" />
+      </template>
       <template v-slot:loading>
         <SFLoading />
       </template>
-    </q-infinite-scroll>
+    </v3-waterfall>
   </div>
 </template>
 <script setup lang="ts" name="Content">
-import { ref, watch } from 'vue';
+import { nextTick, ref, watch } from 'vue';
 import { SelectPageList } from 'v-selectpage';
 import type { PageParameters, FetchDataCallback } from 'v-selectpage';
 import { projectListGet } from '@/apis/treasure-box/index';
@@ -81,34 +85,42 @@ const form = ref<ProjectParamsGet>({
   categoryId: null,
   pageNo: 1,
   tagIds: [],
-  pageSize: 12,
+  pageSize: 30,
 });
 
-const loadAll = ref(false);
+const loadAll = ref(true);
+const loading = ref(false);
 const projectList = ref<ProjectItemType[]>([]);
-const infiniteScrollRef = ref();
 /** 获取项目列表 */
-const getProjectList = async (index: number, done: () => void) => {
-  if (!form.value.categoryId) return done();
-  form.value.pageNo = index;
+const getProjectList = async (flag = false) => {
+  if (!form.value.categoryId) return;
 
-  const data = await projectListGet(form.value);
-  if (data.code !== 200) return;
-
-  if (form.value.pageNo * form.value.pageSize < data.data.totalCount) {
-    done && done();
-  } else {
-    loadAll.value = true;
+  if (flag === true) {
+    form.value.pageNo = 1;
   }
-  projectList.value = [
-    ...projectList.value,
-    ...data.data.list.map((item) => {
-      return {
-        ...item,
-        coverImage: item.coverImage ? imgDomain + item.coverImage : '',
-      };
-    }),
-  ];
+  try {
+    loading.value = true;
+
+    const data = await projectListGet(form.value);
+    if (data.code !== 200) return;
+
+    if (form.value.pageNo * form.value.pageSize < data.data.totalCount) {
+      form.value.pageNo += 1;
+    } else {
+      loadAll.value = true;
+    }
+    projectList.value = projectList.value.concat(
+      data.data.list.map((item) => {
+        return {
+          ...item,
+          coverImage: item.coverImage ? imgDomain + item.coverImage : '',
+        };
+      }),
+    );
+  } catch (error) {
+  } finally {
+    loading.value = false;
+  }
 };
 
 /** 重置 */
@@ -119,20 +131,18 @@ const reset = () => {
     categoryId: form.value.categoryId,
     pageNo: 1,
     tagIds: [],
-    pageSize: 12,
+    pageSize: 30,
   };
   loadAll.value = false;
   projectList.value = [];
-  infiniteScrollRef.value.setIndex(0);
-  infiniteScrollRef.value.poll();
+  getProjectList(true);
 };
 
 /** 搜索 */
 const search = () => {
   loadAll.value = false;
   projectList.value = [];
-  infiniteScrollRef.value.setIndex(0);
-  infiniteScrollRef.value.poll();
+  getProjectList(true);
 };
 
 /** 延迟一段时间 */
@@ -149,6 +159,7 @@ const fetchTagData = async (data: PageParameters, callback: FetchDataCallback) =
   );
 };
 
+const waterfallRef = ref();
 watch(
   () => treasureStore.treasureMenuId,
   (id) => {
@@ -159,29 +170,17 @@ watch(
         categoryId: id,
         pageNo: 1,
         tagIds: [],
-        pageSize: 12,
+        pageSize: 30,
       };
       loadAll.value = false;
       projectList.value = [];
-      infiniteScrollRef.value.setIndex(0);
-      infiniteScrollRef.value.poll();
+      getProjectList(true);
     }
   },
 );
 </script>
 <style lang="scss" scoped>
 .treasure-content {
-  position: relative;
   padding: 20px;
-
-  .project-list {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 10px;
-  }
-
-  .form-btns {
-    flex-basis: 100%;
-  }
 }
 </style>
