@@ -90,11 +90,6 @@ video {
   vertical-align: baseline;
 }
 
-html,
-body {
-  font-family: 'kaishu';
-}
-
 /* HTML5 display-role reset for older browsers */
 article,
 aside,

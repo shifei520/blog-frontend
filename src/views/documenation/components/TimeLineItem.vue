@@ -90,7 +90,6 @@ const skipToArticleDetail = () => {
       box-sizing: border-box;
       padding: 0 10px;
       margin: -10px 0 0;
-      font-family: 'Pathway Gothic One', sans-serif;
       font-size: 40px;
       font-weight: normal;
       color: #fff;

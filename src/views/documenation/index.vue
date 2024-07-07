@@ -172,7 +172,6 @@ onBeforeUnmount(() => {
 
       &__subtitle {
         margin: 10px 0 0;
-        font-family: 'Pathway Gothic One', sans-serif;
         font-size: 16px;
         font-weight: normal;
         color: rgb(255 255 255 / 50%);

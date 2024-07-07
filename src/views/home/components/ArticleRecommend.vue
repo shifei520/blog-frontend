@@ -28,7 +28,7 @@ import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 import { recommendArticleList } from '@/apis/articles/index';
 import type { ArticleItem as ArticleItemType } from '@/apis/types/articles-index';
-import defaultImg from '@/assets/images/test-cover.jpeg';
+import defaultImg from '@/assets/images/default_article_bg.jpg';
 
 const imgDomain = import.meta.env.VITE_PUBLIC_PATH;
 
