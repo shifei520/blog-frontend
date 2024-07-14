@@ -141,6 +141,12 @@ const menuList = [
     blank: false,
   },
   {
+    title: '阅读',
+    path: '/books',
+    code: 'books',
+    blank: false,
+  },
+  {
     title: '百宝箱',
     path: '/treasure-box',
     code: 'treasureBox',

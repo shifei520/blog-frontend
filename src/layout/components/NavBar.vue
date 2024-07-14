@@ -113,6 +113,13 @@ const menuList = ref([
     title: '文章',
     path: '/article',
     code: 'article',
+    icon: 'article',
+    blank: false,
+  },
+  {
+    title: '阅读',
+    path: '/books',
+    code: 'books',
     icon: 'book-open',
     blank: false,
   },
