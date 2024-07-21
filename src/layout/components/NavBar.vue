@@ -15,6 +15,7 @@
       <li class="search-item"></li>
       <li
         class="menu-item"
+        :class="{ 'menu-active': isActiveMenu(item.path) }"
         v-for="item in menuList"
         :key="item.code"
         @click="skipMenu(item.path, item.blank)"
@@ -42,34 +43,13 @@
     </ul>
 
     <!-- 移动端的菜单抽屉组件 -->
-    <MenuDrawer v-model="drawerVisible">
-      <div class="user-header">
-        <span>{{ userName ? '您好，' + userName : '未登陆' }}</span>
-      </div>
-      <ul class="mobile-menu">
-        <li
-          class="mobile-menu-item"
-          v-for="item in menuList"
-          :key="item.code"
-          @click="skipMenu(item.path, item.blank)"
-        >
-          <svg-icon :name="item.icon"></svg-icon>
-          <span class="ml-[3px]">{{ item.title }}</span>
-        </li>
-        <li class="mobile-menu-item" v-if="userName" @click="skipMenu('/profile')">
-          <svg-icon name="user"></svg-icon>
-          <span>个人中心</span>
-        </li>
-        <li class="mobile-menu-item" v-if="userName" @click="logout">
-          <svg-icon name="logout"></svg-icon>
-          <span>退出登陆</span>
-        </li>
-        <li class="mobile-menu-item" v-else @click="login">
-          <svg-icon name="logout"></svg-icon>
-          <span>登录</span>
-        </li>
-      </ul>
-    </MenuDrawer>
+    <MenuDrawer
+      :menuList="menuList"
+      @on-skip="skipMenu"
+      @on-logout="logout"
+      @on-login="login"
+      ref="menuDrawerRef"
+    ></MenuDrawer>
   </div>
 </template>
 <script setup lang="ts" name="NavBar">
@@ -79,6 +59,7 @@ import { Dropdown } from 'v-dropdown';
 import { useRouter, useRoute } from 'vue-router';
 import { userStore } from '@/store/user';
 import SearchInput from './SearchInput.vue';
+import type { MenuItem } from '@/layout/types';
 
 const MenuDrawer = defineAsyncComponent(() => import('./MenuDrawer.vue'));
 
@@ -101,7 +82,7 @@ const login = () => {
   router.push('/login');
 };
 
-const menuList = ref([
+const menuList = ref<MenuItem[]>([
   {
     title: '首页',
     path: '/home',
@@ -134,7 +115,6 @@ const menuList = ref([
 
 /** 跳转路由 */
 const skipMenu = (path: string, blank = false) => {
-  drawerVisible.value = false;
   if (blank) {
     const routeLocation = router.resolve(path);
     window.open(routeLocation.fullPath, '_blank');
@@ -190,9 +170,13 @@ onMounted(() => {
   }
 });
 
-const drawerVisible = ref(false);
+const isActiveMenu = (path: string) => {
+  return route.path.startsWith(path);
+};
+
+const menuDrawerRef = ref();
 const openDrawerMenu = () => {
-  drawerVisible.value = true;
+  menuDrawerRef.value?.openDrawer();
 };
 </script>
 <style lang="scss" scoped>
@@ -234,33 +218,6 @@ const openDrawerMenu = () => {
     cursor: pointer;
   }
 
-  .user-header {
-    min-height: 30px;
-    padding: 4px 10px;
-    color: $primaryColor;
-    text-align: center;
-  }
-
-  .mobile-menu {
-    padding: 15px;
-    color: $primaryColor;
-
-    .mobile-menu-item {
-      height: 30px;
-      line-height: 30px;
-      text-align: left;
-      cursor: pointer;
-
-      .svg-icon {
-        margin-right: 10px;
-      }
-
-      &:hover {
-        color: $primaryBlue;
-      }
-    }
-  }
-
   .right-menu {
     display: flex;
     column-gap: 20px;
@@ -285,6 +242,15 @@ const openDrawerMenu = () => {
       }
 
       &:hover {
+        color: $primaryBlue;
+
+        &::after {
+          bottom: 0;
+          opacity: 1;
+        }
+      }
+
+      &.menu-active {
         color: $primaryBlue;
 
         &::after {

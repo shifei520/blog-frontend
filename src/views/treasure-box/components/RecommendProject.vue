@@ -126,10 +126,17 @@ const onSubmit = async () => {
   visible.value = false;
 };
 
-const formRef = ref(null);
+const formRef = ref();
 const onReset = () => {
-  form.value.categoryId = null;
-  form.value.tagIds = null;
+  form.value = {
+    name: '',
+    description: '',
+    categoryId: null,
+    tagIds: null,
+    remark: '',
+    projecUrl: '',
+    email: '',
+  };
   formRef.value?.reset();
 };
 

@@ -17,6 +17,7 @@ interface UserInfo {
   password: string;
   email: string;
   nickname: string;
+  avator: string;
   createTime: string;
   updateTime: string;
   roles: Role[];

@@ -27,9 +27,8 @@
               <h6>
                 BY <span class="text-[#c02c38]">{{ item.author }}</span>
               </h6>
-              <p></p>
               <!-- 书籍介绍 -->
-              <div v-html="item.bookIntro"></div>
+              <div v-html="item.bookIntro" class="intro-detail"></div>
             </div>
           </div>
         </div>
@@ -53,8 +52,7 @@
           <div class="page-right-2">
             <div class="page-text w-richtext">
               <h3><strong>读书感悟</strong></h3>
-              <p>‍</p>
-              <div v-html="item.evaluate"></div>
+              <div v-html="item.evaluate" class="intro-detail"></div>
             </div>
           </div>
         </div>
@@ -93,22 +91,6 @@ const closeHandle = () => {
 }
 
 /* ----------------------- */
-
-h3 {
-  margin-top: 20px;
-  margin-bottom: 10px;
-  font-size: 24px;
-  font-weight: bold;
-  line-height: 30px;
-}
-
-h6 {
-  margin-top: 10px;
-  margin-bottom: 10px;
-  font-size: 12px;
-  font-weight: bold;
-  line-height: 18px;
-}
 
 p {
   margin-top: 0;
@@ -307,33 +289,43 @@ a {
 
 .page-text {
   position: relative;
-  display: block;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
   width: 80%;
-  margin-top: 25px;
-  margin-right: auto;
-  margin-left: auto;
+  height: 100%;
+  padding: 25px 0;
+  margin: 0 auto;
   font-family: Georgia, Times, 'Times New Roman', serif;
-}
 
-.page-text p {
-  margin-bottom: 0;
-  font-size: 0.85vw;
-  line-height: 1.5;
-}
+  h3 {
+    margin-top: 20px;
+    margin-bottom: 10px;
+    font-family: 'Palatino Linotype', 'Book Antiqua', Palatino, serif;
+    font-size: 24px;
+    font-style: italic;
+    font-weight: bold;
+    line-height: 30px;
+  }
 
-.page-text h3 {
-  font-family: 'Palatino Linotype', 'Book Antiqua', Palatino, serif;
-  font-style: italic;
-}
+  h6 {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    font-family: 'PT Sans', sans-serif;
+    font-size: 12px;
+    line-height: 18px;
+  }
 
-.page-text h6 {
-  font-family: 'PT Sans', sans-serif;
-  font-size: 9px;
-  text-decoration: none;
-}
+  p {
+    margin-bottom: 0;
+    font-size: 0.85vw;
+    line-height: 1.5;
+  }
 
-.page-text a {
-  color: #da5a13;
+  .intro-detail {
+    flex: 1;
+    overflow-y: auto;
+  }
 }
 
 .layer2 {

@@ -119,3 +119,8 @@ export const validateEmail = (email: string) => {
 
   return pattern.test(email);
 };
+
+/** 获取文件后缀名 */
+export function getExt(efilename: string) {
+  return efilename.split('.').pop();
+}

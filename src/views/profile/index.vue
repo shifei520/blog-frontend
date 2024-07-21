@@ -15,6 +15,9 @@
         </div>
       </div>
       <aside class="profile-menu">
+        <div class="avator" v-if="userInfo?.avator">
+          <img :src="imgDomain + userInfo.avator" alt="" />
+        </div>
         <div class="profile-nickname">{{ userInfo?.nickname }}</div>
         <button class="write-article-btn" @click="skipToDraft">
           <div class="svg-wrapper">
@@ -38,6 +41,7 @@ import { storeToRefs } from 'pinia';
 const PersonalInfo = defineAsyncComponent(() => import('./component/PersonalInfo.vue'));
 const TagManager = defineAsyncComponent(() => import('./component/TagManager.vue'));
 
+const imgDomain = import.meta.env.VITE_PUBLIC_PATH;
 const { userInfo } = storeToRefs(userStore());
 const router = useRouter();
 
@@ -86,6 +90,9 @@ const skipToDraft = () => {
     column-gap: 20px;
 
     .profile-menu {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
       padding: 20px;
       background-color: $primaryBgTransparent;
       border-radius: 6px;
@@ -93,6 +100,19 @@ const skipToDraft = () => {
       .profile-nickname {
         font-weight: 600;
         text-align: center;
+      }
+
+      .avator {
+        width: 128px;
+        height: 128px;
+        transform: translateY(-50%);
+
+        > img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          border-radius: 50%;
+        }
       }
     }
 

@@ -1,6 +1,12 @@
 <template>
   <div class="project-item" @click="skip">
-    <img v-if="item.coverImage" :src="item.coverImage" alt="" class="project-img" />
+    <img
+      v-if="item.coverImage"
+      v-lazy="item.coverImage"
+      alt=""
+      class="project-img"
+      style="height: 180px"
+    />
     <div class="text">
       <h6 class="project-title">{{ item.name }}</h6>
       <p class="project-description">{{ item.description }}</p>
@@ -12,6 +18,7 @@
 </template>
 <script setup lang="ts" name="ProjectItem">
 import type { ProjectItem } from '@/apis/types/treasure';
+
 const props = withDefaults(
   defineProps<{
     item: ProjectItem;

@@ -56,6 +56,7 @@
             tip="建议尺寸：192*128px (封面仅展示在首页信息流中)"
             :http-handle="httpHandle"
             :progress="progress"
+            v-model="formData.coverImage"
           />
         </div>
       </div>

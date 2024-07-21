@@ -42,6 +42,7 @@
       @scrollReachBottom="getProjectList"
       :gap="10"
       :distanceToScroll="100"
+      :height-hook="heightHook"
     >
       <template v-slot:default="{ item }">
         <ProjectItem :key="item.id" :item="item" />
@@ -53,7 +54,7 @@
   </div>
 </template>
 <script setup lang="ts" name="Content">
-import { nextTick, ref, watch } from 'vue';
+import { render, ref, watch, h } from 'vue';
 import { SelectPageList } from 'v-selectpage';
 import type { PageParameters, FetchDataCallback } from 'v-selectpage';
 import { projectListGet } from '@/apis/treasure-box/index';
@@ -157,6 +158,39 @@ const fetchTagData = async (data: PageParameters, callback: FetchDataCallback) =
     props.tagList.filter((tag) => tag.name.includes(data.search)),
     props.tagList.length,
   );
+};
+
+/**
+ * 计算元素高度
+ * @param {SlotsType} slots 内部 slots 组
+ * @param {T} item 该元素块对应数据信息
+ * @param {number} width 元素块宽度
+ * @returns {Promise<number>} 高度
+ */
+const heightHook = (slots: any, item: any, width: any) => {
+  const div = document.createElement('div');
+  div.style.position = 'absolute';
+  div.style.left = '-1000px';
+  div.style.width = width + 'px';
+  div.style.visibility = 'hidden';
+
+  // 使用 render 函数渲染出卡片 slot
+  render(h(slots.default, { item }), div);
+
+  // 将图片隐藏，图片的高度额外计算
+  const img = div.querySelector('img');
+  img && (img.style.display = 'none');
+  // 计算除图片外其他元素的高度
+  const body = document.body || document.documentElement;
+  body.appendChild(div);
+  const otherHeight = div.offsetHeight;
+  body.removeChild(div);
+
+  // 单独计算图片实际展示高度
+  // const imgHeight = img ? (width / 803) * 607 : 0;
+  const imgHeight = img ? 188 : 0;
+  // 返回该卡片的整体高度
+  return imgHeight + otherHeight;
 };
 
 const waterfallRef = ref();
