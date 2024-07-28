@@ -118,7 +118,7 @@ $cube-z: 64px;
   &.left,
   &.top,
   &.bottom {
-    background-color: #fff;
+    background-color: v-bind('item.borderColor');
     background-repeat: no-repeat;
     background-size: 100% 100%;
   }

@@ -119,7 +119,7 @@ a {
   display: flex;
   justify-content: center;
   width: 57vw;
-  height: 50vh;
+  height: 60vh;
   padding-right: 1%;
   padding-left: 1%;
   margin-top: 8vw;
