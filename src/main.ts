@@ -30,6 +30,7 @@ import zhCn from 'dayjs/locale/zh-cn';
 dayjs.locale(zhCn);
 import V3waterfall from 'v3-waterfall';
 import 'v3-waterfall/dist/style.css';
+import hevueImgPreview from 'hevue-img-preview';
 
 const app = createApp(App);
 
@@ -58,4 +59,5 @@ app
   .use(globalComponents)
   .use(globalDirectives)
   .use(V3waterfall)
+  .use(hevueImgPreview)
   .mount('#app');

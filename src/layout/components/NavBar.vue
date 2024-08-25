@@ -105,6 +105,13 @@ const menuList = ref<MenuItem[]>([
     blank: false,
   },
   {
+    title: '旅行',
+    path: '/travel',
+    code: 'travel',
+    icon: 'travel',
+    blank: false,
+  },
+  {
     title: '百宝箱',
     path: '/treasure-box',
     code: 'treasureBox',

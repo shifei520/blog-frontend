@@ -15,12 +15,14 @@ const props = withDefaults(
     className?: string;
     bodymovin?: boolean;
     looploop?: boolean;
+    speed?: number;
   }>(),
   {
     name: '',
     className: '',
     bodymovin: false,
     looploop: false,
+    speed: 1,
   },
 );
 
@@ -34,25 +36,24 @@ const svgClass = computed(() => {
   }
 });
 
+let directionMenu: any = 1;
 onMounted(() => {
   if (props.bodymovin) {
     let iconSkipForward = document.querySelector(`.${bodymovinName.value}`);
-    const jsonFileMap = import.meta.glob('@/assets/svg-icons/*.json', { eager: true });
-    let animationData = null;
-    for (let key in jsonFileMap) {
-      animationData = (jsonFileMap[key] as any).default;
-    }
 
     let animationSkipForward = lottie.loadAnimation({
       container: iconSkipForward!,
       renderer: 'svg',
       loop: props.looploop,
       autoplay: props.looploop,
-      animationData,
+      path: `src/assets/svg-icons/${props.name}-lottie.json`,
     });
+    animationSkipForward.setSpeed(props.speed);
 
-    iconSkipForward!.addEventListener('click', function () {
-      animationSkipForward.playSegments([0, 60], true);
+    iconSkipForward!.addEventListener('click', () => {
+      animationSkipForward.setDirection(directionMenu);
+      animationSkipForward.play();
+      directionMenu = -directionMenu;
     });
   }
 });

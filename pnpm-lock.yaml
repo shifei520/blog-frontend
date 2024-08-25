@@ -52,6 +52,9 @@ dependencies:
   dayjs:
     specifier: ^1.11.10
     version: 1.11.10
+  hevue-img-preview:
+    specifier: ^6.1.0
+    version: 6.1.0
   highlight.js:
     specifier: ^11.9.0
     version: 11.9.0
@@ -4214,6 +4217,10 @@ packages:
 
   /heap@0.2.7:
     resolution: {integrity: sha512-2bsegYkkHO+h/9MGbn6KWcE45cHZgPANo5LXF7EvWdT0yT2EguSVO1nDgU5c8+ZOPwp2vMNa7YFsJhVcDR9Sdg==}
+    dev: false
+
+  /hevue-img-preview@6.1.0:
+    resolution: {integrity: sha512-2KrbKUUGUbwYR6MuKVeBghPIywTBYFr0XMoJADoZ33cQHDT0x1A7B4g8EwL1zXK6eyk1low5kefmUw2q+yIfvw==}
     dev: false
 
   /highlight.js@11.9.0:

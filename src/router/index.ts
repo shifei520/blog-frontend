@@ -50,6 +50,16 @@ const router = createRouter({
           name: 'Books',
           component: () => import('@/views/books/index.vue'),
         },
+        {
+          path: 'travel',
+          name: 'Travel',
+          component: () => import('@/views/travel/index.vue'),
+        },
+        {
+          path: 'travel/:id',
+          name: 'SceneImage',
+          component: () => import('@/views/travel/children/scene-image/index.vue'),
+        },
       ],
     },
     {

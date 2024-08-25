@@ -53,6 +53,7 @@ const backToTop = () => {
 
 defineExpose({
   backToTop,
+  current: scrollRef,
 });
 </script>
 <style lang="scss" scoped>
