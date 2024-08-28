@@ -4,7 +4,7 @@
       <span>文章总数：</span><span>{{ blogInfo.articleCount }}</span>
     </p>
     <p>
-      <span>访客量：</span><span>{{ blogInfo.userCount }}</span>
+      <span>用户注册量：</span><span>{{ blogInfo.userCount }}</span>
     </p>
   </div>
 </template>

@@ -31,7 +31,7 @@ export const imageBySceneId = (
   params: ImageListGetParams,
 ): Promise<PageResponse<TravelImageItem>> => {
   return request({
-    url: '/v1/travel/image',
+    url: '/v1/travel/photo',
     method: 'GET',
     params,
   });

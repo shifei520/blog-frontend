@@ -147,6 +147,12 @@ const menuList = [
     blank: false,
   },
   {
+    title: '旅行',
+    path: '/travel',
+    code: 'travel',
+    blank: false,
+  },
+  {
     title: '百宝箱',
     path: '/treasure-box',
     code: 'treasureBox',
