@@ -34,7 +34,7 @@ const imgDomain = import.meta.env.VITE_PUBLIC_PATH;
 const imageList = ref<TravelImageItem[]>([]);
 const queryForm = ref<ImageListGetParams>({
   pageNo: 1,
-  pageSize: 10,
+  pageSize: 20,
   sceneId: Number(route.params?.id),
 });
 
