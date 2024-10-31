@@ -1,0 +1,16 @@
+name: CD
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Build and Run docker
+        run: |
+          docker build -t blog-frontend-image:latest .
+          docker run -d --name my-running-container -p 80:80 -p 443:443 blog-frontend-image:latest
